@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() => runApp(MyApp());
 
@@ -190,7 +191,26 @@ class Page1 extends StatelessWidget {
 
   //중단
   Widget _buildMiddle() {
-    return Text('Middle');
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 400.0, //높이 400
+      ),
+      items: [1, 2, 3, 4, 5].map((i) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+                width: MediaQuery.of(context).size.width, //기기의 가로 길이
+                margin: EdgeInsets.symmetric(horizontal: 5.0), //좌우 여백 5
+                decoration: BoxDecoration(color: Colors.amber //배경색
+                    ),
+                child: Text(
+                  'text $i',
+                  style: TextStyle(fontSize: 16.0),
+                ));
+          },
+        );
+      }).toList(),
+    );
   }
 
   //중단
