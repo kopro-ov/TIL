@@ -83,13 +83,45 @@ class Page1 extends StatelessWidget {
 
   //상단
   Widget _buildTop() {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Icon(
-          Icons.local_taxi,
-          size: 40,
+        Column(
+          children: <Widget>[
+            Icon(
+              Icons.local_taxi,
+              size: 40,
+            ),
+            Text('택시'),
+          ],
         ),
-        Text('택시'),
+        Column(
+          children: <Widget>[
+            Icon(
+              Icons.local_taxi,
+              size: 40,
+            ),
+            Text('택시'),
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            Icon(
+              Icons.local_taxi,
+              size: 40,
+            ),
+            Text('택시'),
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            Icon(
+              Icons.local_taxi,
+              size: 40,
+            ),
+            Text('택시'),
+          ],
+        ),
       ],
     );
   }
