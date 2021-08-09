@@ -72,12 +72,28 @@ class _MyHomePageState extends State<MyHomePage> {
 class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        '홈 페이지', //이 부분의 글자만 다르게 작성
-        style: TextStyle(fontSize: 40),
-      ),
+    return Column(
+      children: <Widget>[
+        _buildTop(),
+        _buildMiddle(),
+        _buildBottom(),
+      ],
     );
+  }
+
+  //상단
+  Widget _buildTop() {
+    return Text('Top');
+  }
+
+  //중단
+  Widget _buildMiddle() {
+    return Text('Middle');
+  }
+
+  //중단
+  Widget _buildBottom() {
+    return Text('Bottom');
   }
 }
 
