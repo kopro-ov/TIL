@@ -83,7 +83,15 @@ class Page1 extends StatelessWidget {
 
   //상단
   Widget _buildTop() {
-    return Text('Top');
+    return Column(
+      children: <Widget>[
+        Icon(
+          Icons.local_taxi,
+          size: 40,
+        ),
+        Text('택시'),
+      ],
+    );
   }
 
   //중단
