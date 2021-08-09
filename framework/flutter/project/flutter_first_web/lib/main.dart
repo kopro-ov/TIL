@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+final dummyItems = [
+  'https://cdn.pixabay.com/photo/2018/05/07/10/48/husky-3380548__480.jpg',
+  'https://cdn.pixabay.com/photo/2018/05/07/10/49/husky-3380550__480.jpg',
+  'https://cdn.pixabay.com/photo/2014/08/21/14/51/dog-423398__480.jpg',
+  'https://cdn.pixabay.com/photo/2016/02/19/15/46/labrador-retriever-1210559__480.jpg',
+  'https://cdn.pixabay.com/photo/2019/04/10/23/51/dog-4118585__480.jpg',
+];
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -193,20 +201,24 @@ class Page1 extends StatelessWidget {
   Widget _buildMiddle() {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 400.0, //높이 400
+        height: 150, //높이 150
       ),
-      items: [1, 2, 3, 4, 5].map((i) {
+      items: dummyItems.map((url) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-                width: MediaQuery.of(context).size.width, //기기의 가로 길이
-                margin: EdgeInsets.symmetric(horizontal: 5.0), //좌우 여백 5
-                decoration: BoxDecoration(color: Colors.amber //배경색
-                    ),
-                child: Text(
-                  'text $i',
-                  style: TextStyle(fontSize: 16.0),
-                ));
+              width: MediaQuery.of(context).size.width, //기기의 가로 길이
+              margin: EdgeInsets.symmetric(horizontal: 5.0), //좌우 여백 5
+              decoration: BoxDecoration(color: Colors.amber //배경색
+                  ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.network(
+                  url,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
           },
         );
       }).toList(),
