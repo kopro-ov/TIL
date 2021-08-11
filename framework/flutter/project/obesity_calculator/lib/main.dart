@@ -9,20 +9,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '폼 검증 데모',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyCustomForm(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('폼 검증 데모'),
+        ),
+        body: MyCustomForm(),
+      ),
     );
   }
 }
@@ -35,50 +31,40 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class _MyCustomFormState extends State<MyCustomForm> {
-  //TextField의 현잿값을 얻는 데필요
-  final myController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    //addListener로 상태를 모니터링 할 수 있음.
-    myController.addListener(_printLatesValue);
-  }
-
-  @override
-  void dispose() {
-    //화면이 종료될 때는 반드시 위젯 트리에서 컨트롤러를 해제해야한다.
-    myController.dispose();
-    super.dispose();
-  }
-
-  _printLatesValue() {
-    //컨트롤러의 text 프로퍼티로 연결된 TextField에 입력값을 얻음.
-    print('두 번째 text field: ${myController.text}');
-  }
+  //Form 위젯에 유니크한 키갑을 부여하고 검증시 사용
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Text Input 연습'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+    return Form(
+        key: _formKey,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            TextField(
-              onChanged: (text) {
-                print('첫 번째 Text field: $text');
+            TextFormField(
+              validator: (String? value) {
+                //그냥 value.isEmpty하면 > The property 'isEmpty" can't be unconditionally accessed because the receiver can be 'null'
+                if (value!.isEmpty) {
+                  return '글자를 입력하세요';
+                }
+                return null;
               },
             ),
-            TextField(
-              controller: myController,
-            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  //폼을 검증하여 통과하면 true 실패하면 false
+                  if (_formKey.currentState!.validate()) {
+                    //검증이 통과하면 스낵바 표시
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('검증 완료')));
+                  }
+                },
+                child: Text('검증'),
+              ),
+            )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
