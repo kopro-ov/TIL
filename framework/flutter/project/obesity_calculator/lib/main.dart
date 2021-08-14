@@ -27,6 +27,17 @@ class BmiMain extends StatefulWidget {
 
 class _BmiMainState extends State<BmiMain> {
   final _formKey = GlobalKey<FormState>();
+
+  final _heightController = TextEditingController();
+  final _weightController = TextEditingController();
+
+  @override
+  void dispose() {
+    _heightController.dispose();
+    _weightController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +55,14 @@ class _BmiMainState extends State<BmiMain> {
                   border: OutlineInputBorder(),
                   hintText: '키',
                 ),
+                controller: _heightController,
                 keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value!.trim().isEmpty) {
+                    return '키를 입력하세요.';
+                  }
+                  return null;
+                },
               ),
               SizedBox(
                 height: 16.0,
@@ -55,6 +73,13 @@ class _BmiMainState extends State<BmiMain> {
                   hintText: '몸무게',
                 ),
                 keyboardType: TextInputType.number,
+                controller: _weightController,
+                validator: (value) {
+                  if (value!.trim().isEmpty) {
+                    return '몸무게를 입력하세요.';
+                  }
+                  return null;
+                },
               ),
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
