@@ -89,6 +89,13 @@ class _BmiMainState extends State<BmiMain> {
                     //폼에 입력값 검증
                     if (_formKey.currentState!.validate()) {
                       //검증시 처리
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BmiResult(
+                            double.parse(_heightController.text.trim()),
+                            double.parse(_weightController.text.trim())))
+                      );
                     }
                   },
                   child: Text('결과'),
