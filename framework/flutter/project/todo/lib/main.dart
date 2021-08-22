@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,9 +10,9 @@ void main() async {
 
 //할 일 클래스
 class Todo {
-  bool isDone = false;
+  bool isDone;
   String title;
-  Todo(this.title);
+  Todo(this.title, {this.isDone = false});
 }
 
 class MyApp extends StatelessWidget {
@@ -94,10 +95,27 @@ class _TodoListPageState extends State<TodoListPage> {
                 ),
               ],
             ),
-            Expanded(
-              child: ListView(
-                children: _items.map((todo) => _buildItemWidget(todo)).toList(),
-              ),
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection('todo').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                }
+
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                final documents = snapshot.data!.docs;
+                return Expanded(
+                  child: ListView(
+                    children:
+                        documents.map((doc) => _buildItemWidget(doc)).toList(),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -106,7 +124,9 @@ class _TodoListPageState extends State<TodoListPage> {
   }
 
   //할 일 객체를 ListTitle 형태로 변경하는 메서드
-  Widget _buildItemWidget(Todo todo) {
+  Widget _buildItemWidget(DocumentSnapshot doc) {
+    final todo = Todo(doc['title'], isDone: doc['isDone']);
+
     return ListTile(
       onTap: () => _toggleTodo(todo), //Todo : 클릭 시 완료/취소되도록 수정
       title: Text(
