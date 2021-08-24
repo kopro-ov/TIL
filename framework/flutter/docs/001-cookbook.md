@@ -115,6 +115,190 @@ bool fn() {
 ```
 [DartPad](https://dartpad.dev/?id=5454e8bfadf3000179d19b9bc6be9918&null_safety=true)  
 [Dart함수](https://dart.dev/guides/language/language-tour#functions)
+# 비동기 프로그래밍
+## Futures
+자바스크립트와 마찬가지로 Dart도 단일 스레드 실행을 지원한다.  
+자바스크립트에서 Promise 객체는 비동기 작업의 최종 완료 (또는 실패)와 결과 값을 나타낸다.
+Dart는 이러한 비동기 처리를 위해서 [Future](https://dart.dev/codelabs/async-await) 객체를 사용한다.  
+**javascript**
+```javascript
+class Example {
+  _getIPAddress() {
+    const url = 'https://httpbin.org/ip';
+    return fetch(url)
+      .then(response => response.json())
+      .then(responseJson => {
+        const ip = responseJson.origin;
+        return ip;
+      });
+  }
+}
 
+function main() {
+  const example = new Example();
+  example
+    ._getIPAddress()
+    .then(ip => console.log(ip))
+    .catch(error => console.error(error));
+}
 
+main();
+```
+**dart**
+```dart
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
+class Example {
+  Future<String> _getIPAddress() {
+    final url = 'https://httpbin.org/ip';
+    return http.get(url).then((response) {
+      String ip = jsonDecode(response.body)['origin'];
+      return ip;
+    });
+  }
+}
+
+main() {
+  final example = new Example();
+  example
+      ._getIPAddress()
+      .then((ip) => print(ip))
+      .catchError((error) => print(error));
+}
+```
+더 많은 정보를 원하시면, [Futures](https://dart.dev/codelabs/async-await)를 참조
+## async와 await
+async 함수 선언으로 비동기 함수를 정의한다.  
+자바스크립트에서는 async 함수가 Promise를 반환한다.  
+await 연산자는 Promise를 기다리기 위해서 사용한다.  
+**javascript**
+```javascript
+class Example {
+  async function _getIPAddress() {
+    const url = 'https://httpbin.org/ip';
+    const response = await fetch(url);
+    const json = await response.json();
+    const data = await json.origin;
+    return data;
+  }
+}
+
+async function main() {
+  const example = new Example();
+  try {
+    const ip = await example._getIPAddress();
+    console.log(ip);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+main();
+```
+Dart에서는 async 함수가 Future를 반환하고, 함수의 구현된 내용은 나중에 실행되도록 예약된다.  
+await 연산자는 Future를 기다리기 위해서 사용된다.  
+**dart**
+```dart
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+class Example {
+  Future<String> _getIPAddress() async {
+    final url = 'https://httpbin.org/ip';
+    final response = await http.get(url);
+    String ip = jsonDecode(response.body)['origin'];
+    return ip;
+  }
+}
+
+main() async {
+  final example = new Example();
+  try {
+    final ip = await example._getIPAddress();
+    print(ip);
+  } catch (error) {
+    print(error);
+  }
+}
+```
+# 기본
+## Flutter 앱을 만드는 방법은?
+React Native로 앱을 만드려면 커멘드라인에서 create-react-native-app을 실행하면 된다.
+```
+$ create-react-native-app <projectname>
+```
+Flutter에서 앱을 만들기 위해서는, 아래 방법 중 하나를 수행하면 된다.
+- Flutter와 Dart 플러그인이 설치된 IDE를 이용하세요.
+- 커멘드라인에서 flutter create 명령을 실행하세요. Flutter SDK가 PATH에 들어있는지 확인이 필요합니다.
+```
+$ flutter create <projectname>
+```
+## 앱을 실행하는 방법은?
+React Native를 사용할 때는, 프로젝트 디렉토리에서 npm run이나 yarn run으로 앱을 실행했을 것이다.  
+Flutter apps를 실행하는 몇가지 방법이 있다.
+- Flutter와 Dart 플러그인이 설치된 IDE에서 “run”을 실행
+- 프로젝트 최상위 디렉토리에서 flutter run을 사용.
+앱이 연결된 기기나, iOS 시뮬레이터 혹은 Android 에뮬레이터에서 실행될 것이다.  
+더 많은 정보를 원하시면, [Flutter 시작하기](https://flutter-ko.dev/docs/get-started/install)를 참조하세요.
+## 위젯을 import 하는 방법은?
+React Native에서는 필요한 모든 컴포넌트를 각각 import 해야 한다.
+```javascript
+//React Native
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+```
+Flutter에서는 머티리얼 디자인 라이브러리에서 위젯을 사용하기 위해 material.dart 패키지를 import 한다.  
+iOS 스타일 위젯을 사용하기 위해 쿠퍼티노 라이브러리를 import 한다.  
+더 많은 기본 위젯을 사용하고 싶다면, 위젯 라이브러리를 import 하거나 직접 위젯 라이브러리를 작성하여 import 할 수도 있다.
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/my_widgets.dart';
+```
+어떤 위젯 패키지를 import 하건, Dart는 앱에서 사용되는 위젯만 가져온다.  
+더 많은 정보를 원하시면, [Flutter 위젯 카탈로그를 참조](https://flutter-ko.dev/docs/development/ui/widgets)
+## Flutter에서 React Native “Hello world!” 앱과 동일한 것은?
+React Native에서는 HelloWorldApp이 React.Component를 상속 받고 render 메서드가 view 컴포넌트를 반환하도록 구현한다.
+```javascript
+// React Native
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Hello world!</Text>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
+```
+Flutter에서는, 기본 위젯 라이브러리의 Center와 Text 위젯을 활용하여 “Hello world!” 앱과 동일한 것을 만들 수 있다.  
+Center 위젯을 최상위 위젯으로 하고, 자식으로 Text 위젯을 넣으면 된다.
+```dart
+// Flutter
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    Center(
+      child: Text(
+        'Hello, world!',
+        textDirection: TextDirection.ltr,
+      ),
+    ),
+  );
+}
+```
