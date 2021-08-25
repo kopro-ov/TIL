@@ -302,3 +302,183 @@ void main() {
   );
 }
 ```
+## 위젯을 사용하고 위젯 트리를 형성하는 방법은?
+Flutter에서는 거의 모든 것이 위젯이다.  
+위젯은 앱 UI의 기본 구성 요소 이다.  
+위젯을 위젯 트리라고 불리는 계층 구조로 조합한다.  
+각각의 위젯은 부모 위젯 내부에 들어가게 되고, 부모로부터 속성을 상속 받는다. 
+앱 객체 자체도 위젯이다. 별도의 “application” 객체는 없고, 최상위 위젯이 그 역할을 담당합니다.  
+위젯을 아래와 같이 정의할 수 있다.  
+- 버튼이나 메뉴와 같은 구조적 요소
+- 글꼴이나 색 구성표와 같은 문체 요소
+- 레이아웃과 같은 패딩 또는 정렬의 한 측면
+이 예제에서 위젯 트리는 MaterialApp 위젯 내부에 위치하게 됩니다.
+```dart
+// Flutter
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Welcome to Flutter',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Welcome to Flutter'),
+        ),
+        body: Center(
+          child: Text('Hello world'),
+        ),
+      ),
+    );
+  }
+}
+```
+플러터에서 앱을 작성할 때는 2가지 종류(StatelessWidget 또는 StatefulWidget)의 위젯을 사용하게 된다.  
+**StatelessWidget**  
+StatelessWidget은 위젯이지만 상태가 없는 위젯으로 한 번 만들어지고 절대 변하지 않는다.
+**StatefulWidget**  
+StatefulWidget은 사용자 입력이나 데이터 수신이 있으면 상태를 동적으로 변경한다.  
+상태가 없는 위젯과 상태가 있는 위젯의 중요한 차이점은 StatefulWidgets이 상태 데이터를 저장하고 그것을 트리 재구성을 통해 전달하는 State 객체가 있어서 데이터가 손실 되지 않는다는 점이다.  
+간단하거나 기본적인 앱에서 위젯을 감싸는 것은 쉽지만, 코드 베이스가 점차 커지고 앱이 복잡해지면, 너무 많이 감싸져 있는 위젯을 함수로 빼거나 작은 클래스로 분리해야 한다. 분리된 함수를 만들면 위젯을 앱 내에서 재사용할 수 있게 된다.
+## 재사용 가능한 컴포넌트를 만드는 방법은?
+`React Native`에서는 재사용 가능한 컴포넌트를 만들기 위해 클래스를 정의한 다음 props 메서드를 사용하여 선택한 요소의 속성과 값을 설정하거나 반환다. 아래 예제에서 CustomCard 클래스를 정의하고, 부모 클래스 안에서 사용한다.
+```javascript
+// React Native
+class CustomCard extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text> Card {this.props.index} </Text>
+        <Button
+          title="Press"
+          onPress={() => this.props.onPress(this.props.index)}
+        />
+      </View>
+    );
+  }
+}
+
+// Usage
+<CustomCard onPress={this.onPress} index={item.key} />
+```
+Flutter에서는 커스텀 위젯을 만들기 위해 클래스를 정의하면 그 위젯을 재사용할 수 있다.  
+또는 아래 예제와 같은 build 함수에서 재사용 가능한 위젯을 정의하고 호출할 수 있다.
+```dart
+// Flutter
+class CustomCard extends StatelessWidget {
+  CustomCard({@required this.index, @required 
+     this.onPress});
+
+  final index;
+  final Function onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: <Widget>[
+          Text('Card $index'),
+          FlatButton(
+            child: const Text('Press'),
+            onPressed: this.onPress,
+          ),
+        ],
+      )
+    );
+  }
+}
+    ...
+// Usage
+CustomCard(
+  index: index,
+  onPress: () { 
+    print('Card $index');
+  },
+)
+    ...
+```
+이전 예제에서는 CustomCard 클래스의 생성자가 [optional parameters](https://dart.dev/guides/language/language-tour#optional-parameters)를 표현하기 위해 Dart의 중괄호 구문 { }을 사용했다.  
+이 필드를 필수로 만들고 싶다면, 생성자에서 중괄호를 지우거나 @required를 추가하면 된다.
+# 프로젝트 구조 및 리소스
+## 어디서부터 코드 작성을 시작해야 하나요?
+main.dart 파일에서 시작한다. Flutter 앱을 만들면 `main.dart`가 자동 생성된다. 
+```dart
+// Dart
+void main(){
+ print('Hello, this is the main function.');
+}
+```
+Flutter에서 진입점은 `’projectname’/lib/main.dart` 파일이고, `main 함수`부터 실행을 시작한다.
+## Flutter 앱에서 파일은 어떻게 구성되어 있습니까?
+Flutter 프로젝트를 새롭게 만들면, 아래와 같은 디렉토리 구조가 생성됩니다. 나중에 구조를 변경할 수는 있지만, 일단은 아래와 같은 상태에서 시작한다.
+```
+┬
+└ projectname
+  ┬
+  ├ android      - Android 관련 파일 포함.
+  ├ build        - iOS 및 Android 빌드 파일 저장.
+  ├ ios          - iOS 관련 파일 포함.
+  ├ lib          - 외부에서 접근할 수 있는 Dart 소스 파일 포함.
+    ┬
+    └ src        - 추가적인 소스 파일 포함.
+    └ main.dart  - Flutter 진입점이며 새로운 앱의 시작.
+                   Flutter 프로젝트를 만들 때 자동으로 생성.
+                   Dart코드 작성을 시작하는 부분임.
+  ├ test         - 자동화 테스트 파일 포함.
+  └ pubspec.yaml - Flutter 앱의 메타데이터 포함.
+                   React Native의 package.json 파일과 동일함.
+```
+## 리소스와 asset은 어디에 위치 시키고, 어떻게 사용하나요?
+Flutter 리소스 또는 asset은 앱과 함께 묶여서 배포되며 런타임에 접근할 수 있는 파일한다.  
+Flutter 앱은 아래와 같은 asset 유형을 포함할 수 있다
+- JSON 파일 같은 정적 데이터
+- 설정 파일
+- 아이콘과 이미지 (JPEG, PNG, GIF, Animated GIF, WebP, Animated WebP, BMP, and WBMP)
+Flutter는 프로젝트 최상위에 위치한 pubspec.yaml 파일을 사용하여 앱에 필요한 assets을 식별한다.
+```
+flutter:
+  assets:
+    - assets/my_icon.png
+    - assets/background.png
+```
+assets 부분은 앱에 포함시켜야하는 파일을 지정한다. 각 asset은 pubspec.yaml에 명시된 상대 경로에 의해서 asset 파일이 어디에 있는지 구분된다.  
+빌드 중, Flutter는 런타임 때에 앱이 읽어올 asset bundle이라 불리는 특수한 아카이브에 asset을 저장한다.  
+pubspec.yaml에 asset의 경로가 지정되면, 빌드 프로세스는 인접한 디렉토리에서 같은 이름의 파일을 찾는다.  
+이 파일들은 지정된 asset과 함께 asset bundle에도 포함된다.  
+Flutter는 앱에 적합한 해상도의 이미지를 선택할 때 asset variants를 사용한다.  
+React Native에서는 이미지 파일을 소스 코드 디렉토리에 놓은 뒤 경로를 지정하여 정적 이미지를 추가할 수 있다.
+```
+<Image source={require('./my-icon.png')} />
+```
+## 네트워크를 통해 이미지를 가져오는 방법은?
+React Native에서는 Image 컴포넌트의 source 속성에서 uri을 지정하고, 필요하다면 크기도 지정한다.  
+Flutter에서는 Image.network 생성자를 사용하여 해당 URL에서 이미지를 가져온다.
+```
+// Flutter
+body: Image.network(
+          'https://flutter-io.kr/images/owl.jpg',
+```
+## 패키지와 패키지 플러그인을 설치하는 방법은?
+Flutter에서 Flutter와 Dart 생태계의 다른 개발자들이 만든 공유 패키지를 사용할 수 있다.  
+이를 통해 일일이 모든 것을 개발할 필요없이 빠르게 앱을 개발할 수 있다. 패키지 플러그인은 플랫폼별 코드가 포함된 패키지이다.  
+React Native에서는 커멘드라인 yarn add {package-name}나 npm install --save {package-name} 명령을 사용해서 패키지를 설치한다.  
+Flutter에서는 아래와 같은 방법으로 패키지를 설치한다.  
+pubspec.yaml의 dependencies 부분에 패키지 이름과 버전을 추가한다.  
+아래 예제는 pubspec.yaml 파일에 google_sign_in Dart 패키지를 추가하는 방법을 보여준다.  
+공백이 문제가 될 수 있기 때문에 **YAML file의 공백을 잘 확인***해야한다!
+```
+dependencies:
+  flutter:
+    sdk: flutter
+  google_sign_in: ^3.0.3
+```
+1. 커멘드라인에서 `flutter pub get`을 사용해서 패키지를 설치하세요. IDE를 이용하고 있으면, IDE가 종종 flutter pub get을 실행해주거나, 실행하도록 유도할 것입니다.
+2. 아래 코드와 같은 패키지를 import 하세요:
+```
+import 'package:flutter/cupertino.dart';
+```
+더 많은 정보를 원하시면, [패키지 사용하기](https://flutter-ko.dev/docs/development/packages-and-plugins/using-packages)와 [패키지 & 플러그인 개발](https://flutter-ko.dev/docs/development/packages-and-plugins/developing-packages)를 참조  
+[Pub site][]의 [Flutter Packages](https://pub.dev/flutter/packages) 섹션에서 Flutter 개발자들이 공유한 많은 패키지를 만날 수 있습니다.
