@@ -481,4 +481,102 @@ dependencies:
 import 'package:flutter/cupertino.dart';
 ```
 더 많은 정보를 원하시면, [패키지 사용하기](https://flutter-ko.dev/docs/development/packages-and-plugins/using-packages)와 [패키지 & 플러그인 개발](https://flutter-ko.dev/docs/development/packages-and-plugins/developing-packages)를 참조  
-[Pub site][]의 [Flutter Packages](https://pub.dev/flutter/packages) 섹션에서 Flutter 개발자들이 공유한 많은 패키지를 만날 수 있습니다.
+[Pub site][]의 [Flutter Packages](https://pub.dev/flutter/packages) 섹션에서 Flutter 개발자들이 공유한 많은 패키지를 만날 수 있다.
+# Flutter 위젯
+Flutter에서는 UI를 만들 때 현재 상태와 설정에 따라 어떻게 보일지에 대한 정보를 담고 있는 위젯을 사용한다.  
+위젯은 종종 강력한 효과를 내기 위해 다수의 중첩된 작은 단일 목적의 위젯으로 구성된다.  
+예를 들어, Container 위젯은 레이아웃, 그리기, 위치, 크기를 담당하는 여러 위젯으로 구성된다.  
+Container 위젯은 LimitedBox와 ConstrainedBox,  Align, Padding, DecoratedBox, Transform 위젯을 포함하고 있다.   원하는 효과를 내기 위해 Container 를 서브클래스로 만드는 대신, 여러 심플한 위젯들을 새롭고 독특한 방식으로 구성할 수 있다.  
+Center 위젯은 레이아웃을 어떻게 조절할 수 있는지를 보여주는 또 다른 예이다.  
+위젯을 가운데 정렬 하기 위해, Center 위젯으로 감싼 다음 정렬, 행, 그리드를 배치하는 위젯을 사용한다.  
+배치 위젯은 시각적으로 자기 자신을 나타내지는 않지만. 대신, 다른 위젯 레이아웃을 제어하는 것이다.  
+왜 위젯이 이런 방식으로 그려지는지 이해하기 위해, 인접한 위젯을 조사하는 것이 종종 도움이 된다.  
+위젯 패키지의 핵심 위젯에 대한 자세한 정보는, [Flutter 기본 위젯](https://flutter-ko.dev/docs/development/ui/widgets/basics), [Flutter 위젯 카탈로그](https://flutter-ko.dev/docs/development/ui/widgets), [Flutter 위젯](https://flutter-ko.dev/docs/reference/widgets) 색인을 참조하세요.  
+[Flutter 기술 개요](https://flutter-ko.dev/docs/resources/technical-overview)
+# Views
+## View 컨테이너와 동일한 것은?
+React Native에서는 `View`가 컨테이너이고, `Flexbox`를 이용한 레이아웃, 스타일, 터치 핸들링, 접근성 제어를 지원한다.  
+Flutter에서는 [Container](https://api.flutter.dev/flutter/widgets/Container-class.html)나 [Column](https://api.flutter.dev/flutter/widgets/Column-class.html), [Row](https://api.flutter.dev/flutter/widgets/Row-class.html), [Center](https://api.flutter.dev/flutter/widgets/Center-class.html) 같은 위젯 라이브러리의 핵심 레이아웃 위젯을 사용할 수 있다.  
+더 많은 정보를 원하시면, [레이아웃 위젯 카탈로그](https://flutter-ko.dev/docs/development/ui/widgets/layout)를 참조
+## FlatList나 SectionList와 동일한 것은?
+`List`는 수직으로 배열된 구성 요소의 스크롤 가능한 목록이다.  
+React Native에서는 `FlatList` 혹은 `SectionList`를 사용하여 단순 목록 혹은 섹션 목록을 그린다.
+```javascript
+// React Native
+<FlatList
+  data={[ ... ]}
+  renderItem={({ item }) => <Text>{item.key}</Text>}
+/>
+```
+Flutter에서는 ListView는 가장 많이 사용되는 스크롤 위젯이다.  
+ListView는 기본 생성자를 통해 명시적으로 자식 목록을 받는다.  
+ListView는 목록의 수가 적은 경우에 가장 적합하다.  
+무거운 목록이거나 무한 스크롤 목록일 때는, ListView.builder를 사용한다.  
+자식들을 필요할 때만 빌드하고, 자식들이 화면에 나타내야 할 자식들만 빌드합니다.
+```dart
+// Flutter
+var data = [ ... ];
+ListView.builder(
+  itemCount: data.length,
+  itemBuilder: (context, int index) {
+    return Text(
+      data[index],
+    );
+  },
+)
+```
+무한 스크롤을 만드는 방법을 배우고 싶다면, [첫 Flutter 앱 만들기, part 1 코드랩](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt1)을 참조
+## Canvas를 사용하여 그리거나 색을 입히는 방법은?
+React Native에서는 캔버스 컴포넌트가 없기 때문에, react-native-canvas 같은 서드 파티 라이브러리를 사용한다.
+```javascript
+// React Native
+handleCanvas = canvas => {
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'skyblue';
+  ctx.beginPath();
+  ctx.arc(75, 75, 50, 0, 2 * Math.PI);
+  ctx.fillRect(150, 100, 300, 300);
+  ctx.stroke();
+};
+
+render() {
+  return (
+    <View>
+      <Canvas ref={this.handleCanvas} />
+    </View>
+  );
+}
+```
+Flutter에서는 [CustomPaint](https://api.flutter.dev/flutter/widgets/CustomPaint-class.html)와 [CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html) 클래스를 사용하여 캔버스에 그릴 수 있다.  
+아래 예시는 CustomPaint 위젯을 사용해서 페인트 단계에서 그리는 방법을 보여준다.  
+추상 클래스인 CustomPainter를 구현하고, 이를 CustomPaint의 painter 속성에 전달한다. `CustomPaint 서브 클래스`는 `paint`와 `shouldRepaint`를 꼭 구현해야 한다.
+```dart
+// Flutter
+class MyCanvasPainter extends CustomPainter {
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint();
+    paint.color = Colors.amber;
+    canvas.drawCircle(Offset(100.0, 200.0), 40.0, paint);
+    Paint paintRect = Paint();
+    paintRect.color = Colors.lightBlue;
+    Rect rect = Rect.fromPoints(Offset(150.0, 300.0), Offset(300.0, 400.0));
+    canvas.drawRect(rect, paintRect);
+  }
+
+  bool shouldRepaint(MyCanvasPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(MyCanvasPainter oldDelegate) => false;
+}
+class _MyCanvasState extends State<MyCanvas> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomPaint(
+        painter: MyCanvasPainter(),
+      ),
+    );
+  }
+}
+```
