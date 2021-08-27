@@ -580,3 +580,226 @@ class _MyCanvasState extends State<MyCanvas> {
   }
 }
 ```
+# 레이아웃
+## 위젯을 사용하여 레이아웃 속성을 정의하는 방법은?
+React Native에서 대부분의 레이아웃은 특정 컴포넌트에 전달된 props로 속성을 정의할 수 있다.  
+예를 들어 View 컴포넌트의 `style prop`을 사용해서 `flexbox` 속성을 지정할 수 있다.  
+컴포넌트들을 열로 배열하려면 props를 아래와 같이 지정해주면 된다: `flexDirection: “column”.`
+```javascript
+// React Native
+<View
+  style={{
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  }}
+>
+```
+Flutter에서는 컨트롤 위젯 및 스타일 속성을 결합하여 특별히 설계한 위젯을 통해서 레이아웃을 정의한다.   
+예를 들어, `Column` 및 `Row `위젯은 자식 배열을 가지고, 그 배열을 각각 수직 혹은 수평으로 정렬한다.  
+`Container` 위젯은 레이아웃과 스타일링 속성을 조합하고 `Center` 위젯은 자식 위젯을 중앙에 위치시킨다.
+```dart
+// Flutter
+Center(
+  child: Column(
+    children: <Widget>[
+      Container(
+        color: Colors.red,
+        width: 100.0,
+        height: 100.0,
+      ),
+      Container(
+        color: Colors.blue,
+        width: 100.0,
+        height: 100.0,
+      ),
+      Container(
+        color: Colors.green,
+        width: 100.0,
+        height: 100.0,
+      ),
+    ],
+  ),
+)
+```
+Flutter는 기본 위젯 라이브러리에서 다양한 레이아웃 위젯을 제공한다.  
+예를 들어, [Padding](https://api.flutter.dev/flutter/widgets/Padding-class.html), [Align](https://api.flutter.dev/flutter/widgets/Align-class.html), [Stack](https://api.flutter.dev/flutter/widgets/Stack-class.html)과 같은 핵심 위젯을 제공한다.  
+[레이아웃 위젯](https://flutter-ko.dev/docs/development/ui/widgets/layout)
+## 위젯을 겹쳐 쌓아올리는 방법은?
+React Native에서는 `absolute` 포지션을 사용하여 컴포넌트를 겹치게 할 수 있다.  
+`Flutter`에서는 `Stack 위젯`을 사용하여 자식 위젯들을 겹치게 할 수 있다.  
+위젯이 전체적으로 또는 부분적으로 기본 위젯과 겹치게 할 수 있다.  
+`Stack` 위젯은 `상자의 가장자리를 기준으로 자식들을 배치`한다.  
+이 클래스는 여러 자식 위젯을 간단하게 쌓아올리려고 할 때 유용하다.  
+```dart
+// Flutter
+Stack(
+  alignment: const Alignment(0.6, 0.6),
+  children: <Widget>[
+    CircleAvatar(
+      backgroundImage: NetworkImage(
+        'https://avatars3.githubusercontent.com/u/14101776?v=4'),
+    ),
+    Container(
+      decoration: BoxDecoration(
+          color: Colors.black45,
+      ),
+      child: Text('Flutter'),
+    ),
+  ],
+)
+```
+위 예제는 `Stack`을 사용하여 `CircleAvatar` 위에 `Container`(반투명 검정 배경을 가진 Text를 보여주고 있음)를 쌓아올린다.  Stack은 정렬 속성과 정렬 좌표를 사용하여 텍스트의 간격을 조정한다.  
+더 많은 정보를 원하시면, [Stack](https://api.flutter.dev/flutter/widgets/Stack-class.html) 클래스 문서를 참조
+# 스타일링
+## 컴포넌트를 꾸미는 방법은?
+`React Native`에서는 인라인 스타일링과 `stylesheets.create`를 사용하여 컴포넌트를 꾸민다.
+```javascript
+// React Native
+<View style={styles.container}>
+  <Text style={{ fontSize: 32, color: 'cyan', fontWeight: '600' }}>
+    This is a sample text
+  </Text>
+</View>
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
+```
+Flutter에서 Text 위젯은 style 속성에 TextStyle 클래스를 사용할 수 있다.  
+여러 곳에서 같은 텍스트 스타일을 사용하고 싶다면, [TextStyle](https://api.flutter.dev/flutter/dart-ui/TextStyle-class.html) 클래스를 여러 Text 위젯에 사용할 수 있다.
+```dart
+// Flutter
+var textStyle = TextStyle(fontSize: 32.0, color: Colors.cyan, fontWeight:
+   FontWeight.w600);
+	...
+Center(
+  child: Column(
+    children: <Widget>[
+      Text(
+        'Sample text',
+        style: textStyle,
+      ),
+      Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Icon(Icons.lightbulb_outline,
+          size: 48.0, color: Colors.redAccent)
+      ),
+    ],
+  ),
+)
+```
+## Icons와 Colors를 사용하는 방법은?
+React Native는 아이콘을 지원하지 않기 때문에 서드 파티 라이브러리가 사용된다.  
+Flutter에서는 머티리얼 라이브러리를 import 하면 다양한 [머티리얼 아이콘](https://api.flutter.dev/flutter/material/Icons-class.html)과 [컬러](https://api.flutter.dev/flutter/material/Colors-class.html) 또한 함께 가져온다.
+```dart
+Icon(Icons.lightbulb_outline, color: Colors.redAccent)
+```
+Icons 클래스를 사용할 때, 프로젝트의 `pubspec.yaml` 파일에 `uses-material-design: true로 설정` 되어 있어야 아이콘을 표시하는 MaterialIcons 글꼴이 앱에 포함되도록 할 수 있다.
+```dart
+name: my_awesome_application
+flutter: uses-material-design: true
+```
+Flutter의 [쿠퍼티노 (iOS-style)](https://flutter-ko.dev/docs/development/ui/widgets/cupertino) 패키지는 현재 iOS 디자인 언어를 잘 준수하는 위젯을 제공한다. CupertinoIcons을 사용하기 위해서는 프로젝트의 `pubspec.yaml` 파일에 `cupertino_icons` 의존성을 추가해야 한다.
+```dart
+name: my_awesome_application
+dependencies:
+  cupertino_icons: ^0.1.0
+```
+컴포넌트 전체적인 색과 스타일을 지정하고 싶다면, `ThemeData`을 사용해서 테마의 다양한 측에 기본 색상을 지정한다.   
+`MaterialApp`에서 theme 속성에 `ThemeData` 객체를 설정한다. [Colors](https://api.flutter.dev/flutter/material/Colors-class.html) 클래스는 머티리얼 디자인의 [color palette](https://material.io/design/style/color.html)에 해당하는 색상을 제공한다.  
+아래 예제는 기본 색을 `blue`로, 텍스트 선택을 `red`로 설정하는 예제이다.
+```dart
+class SampleApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Sample App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        textSelectionColor: Colors.red
+      ),
+      home: SampleAppPage(),
+    );
+  }
+}
+```
+## 스타일 테마를 추가하는 방법은?
+React Native에서, 컴포넌트 공통 테마는 stylesheets에 정의한 후 컴포넌트에 사용한다.  
+Flutter에서는 [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html) 클래스에 스타일을 정의하고 [MaterialApp](https://api.flutter.dev/flutter/material/MaterialApp-class.html) 위젯의 테마 속성에 전달함으로써 거의 모든 곳에 균일한 스타일을 적용할 수 있다.
+```dart
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.cyan,
+        brightness: Brightness.dark,
+      ),
+      home: StylingPage(),
+    );
+  }
+```
+Theme는 MaterialApp 위젯을 사용하지 않고도 적용될 수 있다.  
+[Theme 위젯](https://api.flutter.dev/flutter/material/Theme-class.html)은 data 매개 변수에서 ThemeData를 가져와 모든 자식 위젯에 ThemeData를 적용한다.
+```dart
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: ThemeData(
+        primaryColor: Colors.cyan,
+        brightness: brightness,
+      ),
+      child: Scaffold(
+          backgroundColor: Theme.of(context).primaryColor,
+              ...
+              ...
+      ),
+    );
+  }
+```
+# 상태 관리
+상태(State)는 위젯이 빌드될 때 동기적으로 읽을 수 있는 정보이고, 위젯의 수명 동안 변경될 수 있는 정보이다.  
+Flutter에서 앱의 상태를 관리하기 위해서는, State 객체와 함께 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)을 사용한다.  
+Flutter 상태 관리 방법에 대한 더 자세한 정보는 [State management](https://flutter-ko.dev/docs/development/data-and-backend/state-mgmt)를 참조.
+## The StatelessWidget
+Flutter에서 `StatelessWidget`은 `상태 변화가 필요 없는`(관리할 내부 상태가 없음) 위젯  
+Stateless 위젯은 묘사하려는 UI의 일부분이 객체의 자체적인 구성 정보나 위젯의 [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html) 이외의 것에 의존하지 않을 때 유용하다.  
+[AboutDialog](https://api.flutter.dev/flutter/material/AboutDialog-class.html), [CircleAvatar](https://api.flutter.dev/flutter/material/CircleAvatar-class.html), [Text](https://api.flutter.dev/flutter/widgets/Text-class.html)가 [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)의 하위 클래스인 상태가 없는 위젯의 예시
+```dart
+// Flutter
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyStatelessWidget(text: 'StatelessWidget Example to show immutable data'));
+
+class MyStatelessWidget extends StatelessWidget {
+  final String text;
+  MyStatelessWidget({Key key, this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        text,
+        textDirection: TextDirection.ltr,
+      ),
+    );
+  }
+}
+```
+이전 예제에서, `final` 표시가 있는 `text`를 전달하는 `MyStatelessWidget`을 생성자로 사용했다.  
+이 클래스는 `StatelessWidget`을 확장하고, 불변 데이터를 포함하고 있다.  
+상태가 없는 위젯의 `build` 메서드는 보통 3가지 상황에서만 호출됩니다.
+- 위젯이 트리에 추가될 때
+- 위젯의 부모가 설정이 변경됐을 때
+- 사용하고 있는 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)이 변경될 때
+## The StatefulWidget
+[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)은 상태가 변경되는 위젯  
+
+
+
