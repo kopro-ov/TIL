@@ -800,6 +800,225 @@ class MyStatelessWidget extends StatelessWidget {
 - 사용하고 있는 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)이 변경될 때
 ## The StatefulWidget
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)은 상태가 변경되는 위젯  
+`setState 메서드`를 사용하여 `StatefulWidget`의 상태를 변경한다.  
+`setState`를 호출하면 Flutter 프레임워크에게 `상태가 변경되었다고 알려`주고, 그러면 `앱이 build 메서드를 다시 실행`하여 변경 사항을 반영할 수 있게 됩니다.  
+상태는 위젯이 빌드 될 때 동기적으로 읽을 수 있는 정보이고, 위젯의 생명 주기 동안 변경 될 수 있다. 상태가 변경 될 때 즉시 상태를 알리는 것은 위젯을 구현하는 사람의 책임이다. 위젯이 동적으로 변화하는 경우 StatefulWidget을 사용한다. 예를 들어, form에 타이핑을 하거나 slider를 움직여서 위젯의 상태가 변할 수 있다. 또는, 시간이 지남에 따라 변경될 수도 있다(데이터 피드가 UI를 업데이트 할 수 있습니다).  
+[Checkbox](https://api.flutter.dev/flutter/material/Checkbox-class.html), [Radio](https://api.flutter.dev/flutter/material/Radio-class.html), [Slider](https://api.flutter.dev/flutter/material/Slider-class.html), [InkWell](https://api.flutter.dev/flutter/material/InkWell-class.html), [Form](https://api.flutter.dev/flutter/widgets/Form-class.html), [TextField](https://api.flutter.dev/flutter/material/TextField-class.html)는 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)의 하위클래스인 상태가 있는 위젯의 예시이다.  
+아래 예시는 `createState()` 메서드를 필요로 하는 `StatefulWidget`을 선언하는 예시입니다. 이 메서드는 위젯의 상태를 관리하는 상태 객체 `_MyStatefulWidgetState`를 생성한다.
+```dart
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key, this.title}) : super(key: key);
+  final String title;
 
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+```
+아래 상태 클래스 `_MyStatefulWidgetState`는 위젯의 `build()` 메서드를 구현합니다. 상태가 바뀌면(예를 들어, 사용자가 버튼을 누르면), `setState`가 새로운 `toggle` 값과 함께 호출된다. 이렇게 하면 프레임워크가 UI 위젯을 다시 빌드한다.
+```dart
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  bool showtext=true;
+  bool toggleState=true;
+  Timer t2;
 
+  void toggleBlinkState(){
+    setState((){
+      toggleState=!toggleState;
+    });
+    var twenty = const Duration(milliseconds: 1000);
+    if(toggleState==false) {
+      t2 = Timer.periodic(twenty, (Timer t) {
+        toggleShowText();
+      });
+    } else {
+      t2.cancel();
+    }
+  }
 
+  void toggleShowText(){
+    setState((){
+      showtext=!showtext;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            (showtext
+              ?(Text('This execution will be done before you can blink.'))
+              :(Container())
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 70.0),
+              child: RaisedButton(
+                onPressed: toggleBlinkState,
+                child: (toggleState
+                  ?( Text('Blink'))
+                  :(Text('Stop Blinking'))
+                )
+              )
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+## StatefulWidget 및 StatelessWidget의 모범 사례는?
+위젯을 설계할 때 고려해야 할 몇 가지 사항이 있다.
+### 1. 위젯이 StatefulWidget인지 StatelessWidget인지 결정
+Flutter에서, 위젯은 상태 변화에 의존적인지에 따라 Stateful이거나 Stateless이다.  
+- 위젯이 변화한다면(사용자 인터렉션이 있거나 데이터로부터 UI 변경이 있다면), Stateful을 사용해야 힌디.
+- 위젯이 final이거나 immutable이면, Stateless를 사용해야 한다.
+### 2. 어떤 객체가 위젯의 상태를 관리하는지 결정하세요. (StatefulWidget의 경우)
+Flutter에서 상태를 관리하는 3가지 주된 방법이 있다.
+- 위젯이 자신의 상태를 관리
+- 부모 위젯이 상태를 관리
+- 혼합하여 관리
+어떤 접근 방식을 사용할 것인지 결정할 때, 아래 원칙을 고려한다.
+- 해당 상태가 사용자 데이터라면(예를 들어, 슬라이더 위치 혹은 체크박스의 선택과 취소) 상태를 상위 위젯에서 관리하는 것이 가장 좋다.
+- 해당 상태가 보이는 것과 깊다면(예를 들어, 애니메이션) 해당 위젯이 상태를 제일 잘 관리할 수 있다.
+- 잘 모르겠을 때는 부모 위젯이 자식 위젯의 상태를 관리.
+### 3. StatefulWidget의 하위 클래스 및 State
+`MyStatefulWidget` 클래스는 자신의 상태를 관리한다. 이 클래스는 `StatefulWidget`를 상속 받고, `createState()` 메서드를 오버라이드하여 `State 객체`를 만든다. 그리고 프레임워크는 `createState()를 호출`하여 위젯을 빌드한다. 이 예제에서, `createState()`는 다음 모범 사례에서 구현되는 `_MyStatefulWidgetState`의 인스턴스를 만든다.
+```dart
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    ...
+  }
+}
+```
+### 4. StatefulWidget을 위젯 트리에 추가하세요.
+직접 만든 `StatefulWidget`을 앱의 빌드 메서드에 있는 위젯 트리에 추가하세요.
+```dart
+class MyStatelessWidget extends StatelessWidget {
+  // This widget is the root of your application.
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyStatefulWidget(title: 'State Change Demo'),
+    );
+  }
+}
+```
+# Props
+React Native에서 대부분의 컴포넌트는 매개변수나 속성을 `props`로 전달하여 커스터마이징할 수 있다. 자식 컴포넌트에서 `this.props`를 사용해 매개변수에 접근할 수 있다.
+```dart
+// React Native
+class CustomCard extends React.Component {
+  render() {
+    return (
+      <View>
+        <Text> Card {this.props.index} </Text>
+        <Button
+          title='Press'
+          onPress={() => this.props.onPress(this.props.index)}
+        />
+      </View>
+    );
+  }
+}
+class App extends React.Component {
+
+  onPress = index => {
+    console.log('Card ', index);
+  };
+
+  render() {
+    return (
+      <View>
+        <FlatList
+          data={[ ... ]}
+          renderItem={({ item }) => (
+            <CustomCard onPress={this.onPress} index={item.key} />
+          )}
+        />
+      </View>
+    );
+  }
+}
+```
+Flutter에서는 매개변수가 있는 생성자에서 받은 속성을 `final`로 표시된 지역 변수나 함수에 할당한다.
+```dart
+// Flutter
+class CustomCard extends StatelessWidget {
+
+  CustomCard({@required this.index, @required this.onPress});
+  final index;
+  final Function onPress;
+
+  @override
+  Widget build(BuildContext context) {
+  return Card(
+    child: Column(
+      children: <Widget>[
+        Text('Card $index'),
+        FlatButton(
+          child: const Text('Press'),
+          onPressed: this.onPress,
+        ),
+      ],
+    ));
+  }
+}
+    ...
+//Usage
+CustomCard(
+  index: index,
+  onPress: () {
+    print('Card $index');
+  },
+)
+```
+# 로컬 저장소
+아주 많은 데이터나 구조화가 필요하지 않다면, 키-값 쌍 형태의 저장소인 `shared_preferences`로 기본 타입(booleans, floats, ints, longs, strings) 데이터를 읽고 쓸 수 있다.
+## 앱에 전역적인 키-값 쌍을 지속성있게 저장하는 방법은?
+React Native에서는 `AsyncStorage`의 `setItem`과 `getItem 함수`를 사용하여 앱 전역에 걸쳐 지속성있게 데이터를 저장하고 다시 찾아온다.
+```dart
+// React Native
+await AsyncStorage.setItem( 'counterkey', json.stringify(++this.state.counter));
+AsyncStorage.getItem('counterkey').then(value => {
+  if (value != null) {
+    this.setState({ counter: value });
+  }
+});
+```
+Flutter에서는 키-값 데이터를 읽고 쓰기 위해서 앱 내 전역에서 지속되는 [shared_preferences](https://github.com/flutter/plugins/tree/master/packages/shared_preferences) 플러그인을 사용한다. `shared_preferences 플러그인`은 간단한 데이터를 지속성있게 저장할 수 있는 저장소를 제공하기 위해 iOS에선 `NSUserDefaults`, Android에선 `SharedPreferences`를 감싸고 있습니다. 플러그인을 사용하기 위해 `shared_preferences`를 `pubspec.yaml `파일의 의존성에 추가한 다음 Dart 파일에서 import 한다.
+```dart
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^0.4.3
+```
+```dart
+// Dart
+import 'package:shared_preferences/shared_preferences.dart';
+```
+지속성있는 데이터 저장을 구현하려면 `SharedPreferences` 클래스의 setter 메서드를 사용한다. Setter 메서드는 `setInt`, `setBool`, `setString`과 같은 방식으로 다양한 기본형 타입에서 사용 가능하다. 데이터를 읽으려면 `SharedPreferences` 클래스의 getter 메서드를 사용한다. 각 setter에 상응하는 getter가 `getInt`, `getBool`, `getString`와 같은 형태로 존재한다.
+```dart
+SharedPreferences prefs = await SharedPreferences.getInstance();
+_counter = prefs.getInt('counter');
+prefs.setInt('counter', ++_counter);
+setState(() {
+  _counter = _counter;
+});
+```
