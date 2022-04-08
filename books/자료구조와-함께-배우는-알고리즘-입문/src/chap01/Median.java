@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Median {
 
-    static int med(int a, int b, int c) {
+    static int med3(int a, int b, int c) {
         if(a>= b)
             if(b >= c)
                 return b;
@@ -22,20 +22,20 @@ public class Median {
 
     public static void main(String[] args) {
 
-        Scanner stdIn = new Scanner(System.in);
+            System.out.println("med3(3,2,1) = " + med3(3, 2, 1)); // [A] a＞b＞c
+            System.out.println("med3(3,2,2) = " + med3(3, 2, 2)); // [B] a＞b＝c
+            System.out.println("med3(3,1,2) = " + med3(3, 1, 2)); // [C] a＞c＞b
+            System.out.println("med3(3,2,3) = " + med3(3, 2, 3)); // [D] a＝c＞b
+            System.out.println("med3(2,1,3) = " + med3(2, 1, 3)); // [E] c＞a＞b
+            System.out.println("med3(3,3,2) = " + med3(3, 3, 2)); // [F] a＝b＞c
+            System.out.println("med3(3,3,3) = " + med3(3, 3, 3)); // [G] a＝b＝c
+            System.out.println("med3(2,2,3) = " + med3(2, 2, 3)); // [H] c＞a＝b
+            System.out.println("med3(2,3,1) = " + med3(2, 3, 1)); // [I] b＞a＞c
+            System.out.println("med3(2,3,2) = " + med3(2, 3, 2)); // [J] b＞a＝c
+            System.out.println("med3(1,3,2) = " + med3(1, 3, 2)); // [K] b＞c＞a
+            System.out.println("med3(2,3,3) = " + med3(2, 3, 3)); // [L] b＝c＞a
+            System.out.println("med3(1,2,3) = " + med3(1, 2, 3)); // [M] c＞b＞a
 
-
-        System.out.println("세 정수의 중앙값을 구합니다.");
-        System.out.println("a의 값 : ");
-        int a = stdIn.nextInt();
-
-        System.out.println("b의 값 : ");
-        int b = stdIn.nextInt();
-
-        System.out.println("c의 값 : ");
-        int c = stdIn.nextInt();
-
-        System.out.println(med(a, b, c));
 
     }
 
