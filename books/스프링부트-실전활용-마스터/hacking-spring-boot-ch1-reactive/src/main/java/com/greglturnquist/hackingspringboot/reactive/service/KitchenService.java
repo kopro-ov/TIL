@@ -15,12 +15,9 @@ public class KitchenService {
     /**
      * 요리 스트림 생성
      */
-    Flux<Dish> getDishes() {
+    public Flux<Dish> getDishes() {
         return Flux.<Dish> generate(sink -> sink.next(randomDish()))
                 .delayElements(Duration.ofMillis(250));
-
-
-
     }
 
     /**
