@@ -5,7 +5,7 @@ public class Dish {
     private String description;
     private boolean delivered = false;
 
-    Dish(String description) {
+    public Dish(String description) {
         this.description = description;
     }
 
