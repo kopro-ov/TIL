@@ -1,6 +1,6 @@
 package com.greglturnquist.hackingspringboot.reactive.controller;
 
-import com.greglturnquist.hackingspringboot.domain.Dish;
+import com.greglturnquist.hackingspringboot.reactive.domain.Dish;
 import com.greglturnquist.hackingspringboot.reactive.service.KitchenService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.greglturnquist.hackingspringboot.domain;
+package com.greglturnquist.hackingspringboot.reactive.domain;
 
 public class Dish {
 

@@ -1,6 +1,6 @@
 package com.greglturnquist.hackingspringboot.reactive.service;
 
-import com.greglturnquist.hackingspringboot.domain.Dish;
+import com.greglturnquist.hackingspringboot.reactive.domain.Dish;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
