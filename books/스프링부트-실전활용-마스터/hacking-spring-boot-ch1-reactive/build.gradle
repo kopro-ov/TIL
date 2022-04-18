@@ -19,6 +19,7 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test'
     implementation 'org.projectlombok:lombok'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb-reactive
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb-reactive', version: '2.6.6'
     // https://mvnrepository.com/artifact/de.flapdoodle.embed/de.flapdoodle.embed.mongo
     testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.4.5'
