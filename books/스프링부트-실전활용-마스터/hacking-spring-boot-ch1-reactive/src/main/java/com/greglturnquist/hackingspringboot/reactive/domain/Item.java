@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
 public class Item {
@@ -13,5 +12,10 @@ public class Item {
     private @Id String id;
     private String name;
     private double price;
+
+    public Item(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
 
 }
