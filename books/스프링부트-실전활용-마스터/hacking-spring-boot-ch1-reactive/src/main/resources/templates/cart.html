@@ -39,10 +39,10 @@
         <tr>Quantity</tr>
         </thead>
         <tbody>
-        <tr th:each="cart : ${cart.cartItems}">
-            <td th:text="${cart.id}"></td>
-            <td th:text="${cart.name}"></td>
-            <td th:text="${cart.quantity}"></td>
+        <tr th:each="cartItem : ${cart.cartItems}">
+            <td th:text="${cartItem.item.id}"></td>
+            <td th:text="${cartItem.item.name}"></td>
+            <td th:text="${cartItem.quantity}"></td>
         </tr>
         </tbody>
 </body>
