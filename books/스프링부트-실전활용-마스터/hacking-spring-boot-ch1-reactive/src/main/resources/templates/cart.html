@@ -18,12 +18,12 @@
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.price}"></td>
                 <td>
-                    <form method="post" th:action="@{'/add/'+${item.id}}">
+                    <form method="post" th:action="@{'/cart/add/'+${item.id}}">
                         <input type="submit" value="Add to Cart" />
                     </form>
                 </td>
                 <td>
-                    <form method="delete" th:action="@{'/delete/'+${item.id}}">
+                    <form method="delete" th:action="@{'/cart/delete/'+${item.id}}">
                         <input type="submit" value="Delete" />
                     </form>
                 </td>
