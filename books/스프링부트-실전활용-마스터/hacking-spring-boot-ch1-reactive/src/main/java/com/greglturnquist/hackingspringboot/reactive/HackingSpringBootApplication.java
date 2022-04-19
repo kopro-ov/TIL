@@ -2,12 +2,14 @@ package com.greglturnquist.hackingspringboot.reactive;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-public class HackingSPringBootApplication {
+@EnableMongoRepositories
+public class HackingSpringBootApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HackingSPringBootApplication.class, args);
+        SpringApplication.run(HackingSpringBootApplication.class, args);
     }
 
 }
