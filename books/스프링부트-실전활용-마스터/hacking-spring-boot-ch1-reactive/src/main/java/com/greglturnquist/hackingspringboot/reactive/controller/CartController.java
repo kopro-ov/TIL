@@ -20,7 +20,6 @@ import reactor.core.publisher.Mono;
 public class CartController {
 
     private final ItemRepository itemRepository;
-    private final CartRepository cartRepository;
     private final CartService cartService;
 
     @GetMapping("")
@@ -28,9 +27,7 @@ public class CartController {
 
         return Mono.just(Rendering.view("cart")
                 .modelAttribute("items", itemRepository.findAll())
-                .modelAttribute("cart",
-                        cartRepository.findById("My Cart")
-                                .defaultIfEmpty(new Cart("My Cart")))
+                .modelAttribute("cart", cartService.findById("My Cart"))
                 .build());
     }
 
