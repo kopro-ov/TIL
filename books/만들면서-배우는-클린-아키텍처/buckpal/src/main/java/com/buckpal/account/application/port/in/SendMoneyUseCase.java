@@ -1,4 +1,6 @@
 package com.buckpal.account.application.port.in;
 
-public class SendMoneyUseCase {
+public interface SendMoneyUseCase {
+
+    boolean sendMoney(SendMoneyCommand command);
 }
