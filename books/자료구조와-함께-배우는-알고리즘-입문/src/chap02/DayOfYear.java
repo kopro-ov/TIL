@@ -17,11 +17,14 @@ public class DayOfYear {
 
     // 서기 y년 m월 d일의 그 해 경과 일 수를 구함
     static int dayOfYear(int y, int m, int d) {
-        int days = d;
-        for (int i = 1; i < m; i++) {
-            days += mdays[isLeap(y)][i - 1]; //윤년 1, 평년 0
-        }
-        return days;
+//        int days = d;
+//        for (int i = 1; i < m; i++) {
+//            days += mdays[isLeap(y)][i - 1]; //윤년 1, 평년 0
+//        }
+//        return days;
+        while (--m != 0)
+            d += mdays[isLeap(y)][m - 1];
+        return d;
     }
 
     public static void main(String[] args) {
