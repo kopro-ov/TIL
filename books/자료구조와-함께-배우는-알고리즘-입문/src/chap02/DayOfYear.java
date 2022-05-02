@@ -27,6 +27,10 @@ public class DayOfYear {
         return d;
     }
 
+    static int leftDayOfYear(int y, int m, int d) {
+        return 365 + isLeap(y) - dayOfYear(y, m, d);
+    }
+
     public static void main(String[] args) {
 
         Scanner stdIn = new Scanner(System.in);
@@ -40,6 +44,7 @@ public class DayOfYear {
             System.out.print("일 : "); int day = stdIn.nextInt();
 
             System.out.printf("그 해 %d일쨰입니다.\n", dayOfYear(year,month,day));
+            System.out.printf("그 해 남은 일수는 %d일입니다.\n", leftDayOfYear(year,month,day));
 
             System.out.print("한 번 더 할까요? (1.예 / 0.아니오) : ");
             retry = stdIn.nextInt();
