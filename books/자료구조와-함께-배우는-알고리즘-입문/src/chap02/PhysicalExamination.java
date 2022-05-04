@@ -26,5 +26,16 @@ public class PhysicalExamination {
         return sum / dat.length;
     }
 
+    // 시력 분포를 구함
+    static void distVision(PhysData[] dat, int[] dist) {
+
+        int i = 0;
+        dist[i] = 0;
+        for (i = 0; i < dat.length; i++) {
+            if (dat[i].vision >= 0.0 && dat[i].vision <= VMAX / 10.0)
+                dist[(int)(dat[i].vision * 10)]++;
+        }
+    }
+
 
 }
