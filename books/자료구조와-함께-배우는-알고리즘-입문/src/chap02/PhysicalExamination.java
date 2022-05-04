@@ -16,4 +16,15 @@ public class PhysicalExamination {
         }
     }
 
+
+    // 키의 평균값을 구함
+    static double aveHeight(PhysData[] dat) {
+        double sum = 0;
+        for (int i = 0; i < dat.length; i++) {
+            sum += dat[i].height;
+        }
+        return sum / dat.length;
+    }
+
+
 }
