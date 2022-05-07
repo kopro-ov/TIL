@@ -1,5 +1,6 @@
 package chap03;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class StringBinarySearch {
@@ -20,6 +21,16 @@ public class StringBinarySearch {
           "switch", "synchronized", "this", "throw", "throws",
           "transient", "try", "void", "volatile", "while"
         };
+
+        System.out.print("원하는 키워드를 입력하세요 : ");
+        String key = stdIn.next();
+
+        int idx = Arrays.binarySearch(x, key);
+
+        if (idx < 0)
+            System.out.println("해당 키워드가 없습니다.");
+        else
+            System.out.println("해당 키워드는 x["+idx+"]에 있습니다.");
 
     }
 
