@@ -75,5 +75,10 @@ public class IntStack {
         return ptr;
     }
 
+    //스택이 비어 있는가?
+    public boolean isEmpty() {
+        return ptr <= 0;
+    }
+
 
 }
