@@ -61,4 +61,8 @@ public class IntStack {
         return -1;
     }
 
+    public void clear() {
+        ptr = 0;
+    }
+
 }
