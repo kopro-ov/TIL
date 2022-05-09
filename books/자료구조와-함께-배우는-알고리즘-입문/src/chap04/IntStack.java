@@ -35,4 +35,12 @@ public class IntStack {
         return  stk[ptr++] = x;
     }
 
+    //스택에서 데이터를 팝
+    public int pop() throws EmptyIntStackException {
+        if (ptr <= 0) {
+            throw new EmptyIntStackException();
+        }
+        return stk[--ptr];
+    }
+
 }
