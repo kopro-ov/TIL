@@ -80,5 +80,10 @@ public class IntStack {
         return ptr <= 0;
     }
 
+    //스택이 가득 찼는지 검사하는 메서드 isFull
+    public boolean isFull() {
+        return ptr >= max;
+    }
+
 
 }
