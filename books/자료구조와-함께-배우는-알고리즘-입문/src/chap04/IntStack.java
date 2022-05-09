@@ -65,4 +65,9 @@ public class IntStack {
         ptr = 0;
     }
 
+    //스택의 용량 반환
+    public int capacity() {
+        return max;
+    }
+
 }
