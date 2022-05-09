@@ -51,4 +51,14 @@ public class IntStack {
         return stk[ptr - 1];
     }
 
+
+    //스택에서 x를 찾아 인덱스(없으면 -1)반환
+    public int indexOf(int x) {
+        for (int i = 0; i < stk.length; i++) {
+            if (stk[i] == x)
+                return i;
+        }
+        return -1;
+    }
+
 }
