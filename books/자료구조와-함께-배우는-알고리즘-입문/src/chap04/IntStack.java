@@ -70,5 +70,10 @@ public class IntStack {
         return max;
     }
 
+    //스택에 쌓여 있는 데이터 수를 반환
+    public int size() {
+        return ptr;
+    }
+
 
 }
