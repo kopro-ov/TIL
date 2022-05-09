@@ -27,4 +27,12 @@ public class IntStack {
         }
     }
 
+    //스택에 x를 푸시
+    public int push(int x) throws OverflowIntStackException {
+        if (ptr >= max) {
+            throw new OverflowIntStackException(); //스택이 가득차면 예외 던짐
+        }
+        return  stk[ptr++] = x;
+    }
+
 }
