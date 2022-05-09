@@ -85,5 +85,17 @@ public class IntStack {
         return ptr >= max;
     }
 
+    //스택 안에 있는 모든 데이터를 표시하는 메서드
+    public void dump() {
+        if (ptr <= 0) {
+            System.out.println("스택이 비어 있습니다.");
+        } else {
+            for (int i = 0; i < ptr; i++) {
+                System.out.print(stk[i]+ " ");
+            }
+            System.out.println();
+        }
+    }
+
 
 }
