@@ -26,10 +26,24 @@ public class IntAryQueue {
     //데이터를 넣는 작업 인큐
     public int enqueue(int x) {
         if (num >= max) {
+            //큐가 꽉참
             throw new OverflowIntAryQueueException();
         }
         que[num++] = x;
         return x;
     }
 
+    //데이터를 꺼내는 작업 디큐
+    public int dequeue() {
+        if (num <= 0) {
+            //큐가 비어있음
+            throw new EmptyIntAryQueueException();
+        }
+        int x = que[0];
+        for (int i = 0; i < num -1; i++) {
+            que[i] = que[i-1];
+        }
+        num--;
+        return x;
+    }
 }
