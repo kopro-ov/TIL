@@ -23,4 +23,13 @@ public class IntAryQueue {
         }
     }
 
+    //데이터를 넣는 작업 인큐
+    public int enqueue(int x) {
+        if (num >= max) {
+            throw new OverflowIntAryQueueException();
+        }
+        que[num++] = x;
+        return x;
+    }
+
 }
