@@ -1,5 +1,7 @@
 package chap04;
 
+import java.util.Scanner;
+
 public class IntQueue {
 
     private int max; //큐의 용량
@@ -50,5 +52,13 @@ public class IntQueue {
             front = 0;
         return x;
     }
+
+    //큐에서 데이터를 피크(프런트 데이터를 들여다봄)
+    public int peek() throws EmptyIntQueueException {
+        if (num <= 0)
+            throw new EmptyIntQueueException();
+        return que[front];
+    }
+
 
 }
