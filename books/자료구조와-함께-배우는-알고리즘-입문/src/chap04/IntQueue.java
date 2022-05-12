@@ -80,5 +80,9 @@ public class IntQueue {
         return max;
     }
 
+    //큐에 쌓여 있는 데이터 수를 반환
+    public int size() {
+        return num;
+    }
 
 }
