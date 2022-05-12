@@ -90,4 +90,9 @@ public class IntQueue {
         return num <= 0;
     }
 
+    //큐가 가득 찼는지 체크
+    public boolean isFull() {
+        return num >= max;
+    }
+
 }
