@@ -75,6 +75,10 @@ public class IntQueue {
         num = front = rear = 0;
     }
 
+    //큐의 용량을 반환
+    public int capacity() {
+        return max;
+    }
 
 
 }
