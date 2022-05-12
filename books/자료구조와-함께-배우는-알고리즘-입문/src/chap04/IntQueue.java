@@ -85,4 +85,9 @@ public class IntQueue {
         return num;
     }
 
+    //큐가 비어있는지 체크
+    public boolean isEmpty() {
+        return num <= 0;
+    }
+
 }
