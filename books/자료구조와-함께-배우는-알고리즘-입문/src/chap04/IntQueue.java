@@ -65,7 +65,7 @@ public class IntQueue {
         for (int i = 0; i < num; i++) {
             int idx = (i + front) % max;
             if (que[idx] == x)
-                return x;
+                return idx;
         }
         return -1;
     }
