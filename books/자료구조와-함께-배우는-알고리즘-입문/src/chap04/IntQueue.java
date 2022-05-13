@@ -107,4 +107,12 @@ public class IntQueue {
         }
     }
 
+    //큐 안에서 몇 번째에 데이터가 있는지 검색 없으면 0 반환
+    public int search(int x) {
+        for (int i = 0; i < num; i++) {
+            if (que[(front + i) % max] == x)
+                return i + 1;
+        }
+        return 0;
+    }
 }
