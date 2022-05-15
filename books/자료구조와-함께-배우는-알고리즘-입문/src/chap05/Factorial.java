@@ -30,6 +30,7 @@ public class Factorial {
         int x = stdIn.nextInt();
 
         System.out.println(x+"의 팩토리얼은 " + factorial(x)+"입니다.");
+        System.out.println(x+"의 팩토리얼은 " + factorial2(x)+"입니다.");
 
     }
 
