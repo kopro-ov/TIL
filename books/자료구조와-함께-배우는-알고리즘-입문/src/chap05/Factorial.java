@@ -14,6 +14,15 @@ public class Factorial {
             return 1;
     }
 
+    static int factorial2(int n) {
+        int result = 1;
+        for (int i = n; i > 1; i--) {
+            result *= i;
+        }
+        return result;
+    }
+
+
     public static void main(String[] args) {
         Scanner stdIn = new Scanner(System.in);
 
