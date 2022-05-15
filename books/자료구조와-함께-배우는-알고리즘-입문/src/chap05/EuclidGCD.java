@@ -14,6 +14,15 @@ public class EuclidGCD {
             return gcd(y, x % y);
     }
 
+    static int gcd2(int x, int y) {
+        while (y != 0) {
+            int temp = x;
+            x = y;
+            y = temp % y;
+        }
+        return x;
+    }
+
     public static void main(String[] args) {
         Scanner stdIn = new Scanner(System.in);
 
@@ -24,7 +33,8 @@ public class EuclidGCD {
         System.out.print("정수를 입력하세요 : ");
         int y = stdIn.nextInt();
 
-        System.out.print("최대공약수는 "+gcd(x, y)+"입니다.");
+        System.out.println("최대공약수는 "+gcd(x, y)+"입니다.");
+        System.out.println("최대공약수는 "+gcd2(x, y)+"입니다.");
     }
 
 }
