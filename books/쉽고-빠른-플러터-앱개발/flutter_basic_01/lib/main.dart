@@ -44,9 +44,20 @@ class MyHomePage extends StatelessWidget {
         body: Column(
           children: [
             Container(
-              child: Text("Hello, Flutter!"),
-              padding: EdgeInsets.all(30),
-            )
+              padding: const EdgeInsets.all(30.0),
+              width: 200,
+              height: 200,
+              color: Colors.red,
+              child: const Text("Hello, Flutter!"),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 30.0),
+              padding: const EdgeInsets.all(30.0),
+              width: 200,
+              height: 200,
+              color: Colors.blue,
+              child: const Center(child: Text("Hello")),
+            ),
           ],
         ));
   }
