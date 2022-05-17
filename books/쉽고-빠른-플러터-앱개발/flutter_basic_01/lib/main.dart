@@ -45,6 +45,7 @@ class MyHomePage extends StatelessWidget {
           children: [
             Container(
               child: Text("Hello, Flutter!"),
+              padding: EdgeInsets.all(30),
             )
           ],
         ));
