@@ -36,12 +36,17 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          title,
+        appBar: AppBar(
+          title: Text(
+            title,
+          ),
         ),
-      ),
-      body: Center(child: Text(title)),
-    );
+        body: Column(
+          children: [
+            Container(
+              child: Text("Hello, Flutter!"),
+            )
+          ],
+        ));
   }
 }
