@@ -24,41 +24,37 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter'),
+      home: MyHomePage(title: 'Flutter'),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
   final String title;
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+  List<Widget> list = [];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            title,
-          ),
+    for (var i = 0; i < 50; i++) {
+      list.add(
+        Text(
+          'Hello ' + (i + 1).toString(),
+          style: TextStyle(fontSize: 25),
         ),
-        body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                '1. First',
-                style: TextStyle(fontSize: 25),
-              ),
-              Text(
-                '2. Second',
-                style: TextStyle(fontSize: 20),
-              ),
-              Text(
-                '3. Third',
-                style: TextStyle(fontSize: 15),
-              )
-            ],
-          ),
-        ));
+      );
+    }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          title,
+        ),
+      ),
+      body: Center(
+        child: ListView(
+          children: list,
+        ),
+      ),
+    );
   }
 }
