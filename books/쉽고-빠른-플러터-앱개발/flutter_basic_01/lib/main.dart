@@ -22,7 +22,13 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.green,
+        //primarySwatch: Colors.green,
+        appBarTheme: AppBarTheme(
+          color: Colors.green,
+        ),
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0xff6750a4),
+        //primarySwatch: Colors.green,
       ),
       home: MyHomePage(title: 'Flutter'),
     );
@@ -52,30 +58,49 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(16.0),
+                textStyle: const TextStyle(fontSize: 20),
+              ),
               onPressed: () {},
-              child: Text('Text Button'),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Elevated Button'),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
+              child: const Text('TextButton'),
             ),
             OutlinedButton(
+              onPressed: () {
+                debugPrint('Received click');
+              },
+              child: const Text('Outlined Button'),
+            ),
+            ElevatedButton(
+                onPressed: () {}, child: const Text('Elevated Button1')),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                // Foreground color
+                onPrimary: Theme.of(context).colorScheme.onSecondaryContainer,
+                // Background color
+                primary: Theme.of(context).colorScheme.secondaryContainer,
+              ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
               onPressed: () {},
-              child: Text('Outlined Button'),
+              child: const Text('Elevated Button2'),
             ),
-            Padding(
-              padding: EdgeInsets.all(20),
+            IconButton(
+              icon: const Icon(Icons.star),
+              tooltip: 'star',
+              onPressed: () {},
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.star))
+            Ink(
+              decoration: const ShapeDecoration(
+                color: Color(0xff6750a4),
+                shape: CircleBorder(),
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.star),
+                color: Colors.white,
+                onPressed: () {},
+              ),
+            ),
           ],
         ),
       ),
