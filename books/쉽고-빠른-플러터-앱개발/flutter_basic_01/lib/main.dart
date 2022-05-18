@@ -49,6 +49,8 @@ class MyHomePage extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
+            const Text('1'),
+            const Text('1'),
           ],
         ));
   }
