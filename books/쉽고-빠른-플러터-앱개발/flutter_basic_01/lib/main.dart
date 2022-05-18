@@ -44,10 +44,18 @@ class MyHomePage extends StatelessWidget {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text('1'),
               Text('2'),
               Text('3'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('4'),
+                  Text('5'),
+                  Text('6'),
+                ],
+              ),
             ],
           ),
         ));
