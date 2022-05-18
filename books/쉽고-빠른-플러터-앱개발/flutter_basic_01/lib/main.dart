@@ -41,17 +41,15 @@ class MyHomePage extends StatelessWidget {
             title,
           ),
         ),
-        body: Column(
-          children: [
-            Center(
-              child: Image.asset(
-                'images/logo.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-            const Text('1'),
-            const Text('1'),
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text('1'),
+              Text('2'),
+              Text('3'),
+            ],
+          ),
         ));
   }
 }
