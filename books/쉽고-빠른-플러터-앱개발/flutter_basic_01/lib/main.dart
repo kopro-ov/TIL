@@ -58,11 +58,15 @@ class MyHomePage extends StatelessWidget {
               width: 500,
               height: 500,
             ),
-            Image.network(
-              'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAyMjhfMTIx%2FMDAxNjQ2MDQ5Nzc0MzYx.5-e6Mv-NIxtatcBoAtVGuR-_RwoksYiN2jXEMxTlA1og.fyUs_n_nw7aFu97y2wgcbhYt7PF_KVp8cG8Hw30F0CEg.JPEG.ksy9823%2F%25C1%25D2%25B8%25A3%25B5%25F0-2.jpg&type=a340',
-              width: 200,
-              height: 200,
-            ),
+            Positioned(
+              left: 0,
+              bottom: 0,
+              child: Image.network(
+                'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAyMjhfMTIx%2FMDAxNjQ2MDQ5Nzc0MzYx.5-e6Mv-NIxtatcBoAtVGuR-_RwoksYiN2jXEMxTlA1og.fyUs_n_nw7aFu97y2wgcbhYt7PF_KVp8cG8Hw30F0CEg.JPEG.ksy9823%2F%25C1%25D2%25B8%25A3%25B5%25F0-2.jpg&type=a340',
+                width: 200,
+                height: 200,
+              ),
+            )
           ],
         ),
       ),
