@@ -51,9 +51,11 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: list,
+        child: ListView.builder(
+          itemCount: 50,
+          itemBuilder: (BuildContext buildContext, int index) {
+            return Text('$index' + ' Text');
+          },
         ),
       ),
     );
