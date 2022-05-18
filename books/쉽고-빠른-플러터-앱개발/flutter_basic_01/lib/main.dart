@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter'),
     );
   }
 }
@@ -44,12 +44,11 @@ class MyHomePage extends StatelessWidget {
         body: Column(
           children: [
             Center(
-              child: Image.network(
-                  'https://flutter-ko.dev/images/flutter-logo-sharing.png'),
+              child: Image.asset(
+                'images/logo.png',
+                fit: BoxFit.fill,
+              ),
             ),
-            Center(
-              child: Image.asset('images/logo.png'),
-            )
           ],
         ));
   }
