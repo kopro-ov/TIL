@@ -42,20 +42,21 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('1'),
-              Text('2'),
-              Text('3'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('4'),
-                  Text('5'),
-                  Text('6'),
-                ],
+              Text(
+                '1. First',
+                style: TextStyle(fontSize: 25),
               ),
+              Text(
+                '2. Second',
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                '3. Third',
+                style: TextStyle(fontSize: 15),
+              )
             ],
           ),
         ));
