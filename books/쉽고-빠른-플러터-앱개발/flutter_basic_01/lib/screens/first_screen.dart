@@ -8,6 +8,7 @@ class FirstScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('1번째 화면'),
             ElevatedButton(
