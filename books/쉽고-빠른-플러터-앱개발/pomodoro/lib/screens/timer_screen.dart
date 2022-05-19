@@ -105,7 +105,7 @@ class _TimerScreenState extends State<TimerScreen> {
       ElevatedButton(
         onPressed: () {},
         child: Text(
-          1 == 2 ? '계속하기' : '일시정지',
+          _timerStatus == TimerStatus.paused ? '계속하기' : '일시정지',
           style: TextStyle(fontSize: 16),
         ),
       ),
@@ -119,18 +119,19 @@ class _TimerScreenState extends State<TimerScreen> {
           // Background color
           primary: Theme.of(context).colorScheme.primary,
         ),
-        onPressed: () {},
+        onPressed: stop,
         child: const Text('포기하기'),
       ),
     ];
+
     final List<Widget> _stoppedButtons = [
       ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: 1 == 2
+          primary: _timerStatus == TimerStatus.resting
               ? Theme.of(context).colorScheme.primary
               : Theme.of(context).colorScheme.onPrimary,
         ),
-        onPressed: () {},
+        onPressed: run,
         child: const Text('시작하기'),
       ),
     ];
@@ -147,7 +148,7 @@ class _TimerScreenState extends State<TimerScreen> {
             width: MediaQuery.of(context).size.width * 0.6,
             child: Center(
               child: Text(
-                '00:00',
+                secondsToSTring(_timer),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 48,
@@ -157,15 +158,15 @@ class _TimerScreenState extends State<TimerScreen> {
             ),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: 1 == 2
+                color: _timerStatus == TimerStatus.resting
                     ? Colors.green
                     : Theme.of(context).colorScheme.primary),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: 1 == 2
+            children: _timerStatus == TimerStatus.resting
                 ? const []
-                : 1 == 2
+                : _timerStatus == TimerStatus.stopped
                     ? _stoppedButtons
                     : _runningButtons,
           )
