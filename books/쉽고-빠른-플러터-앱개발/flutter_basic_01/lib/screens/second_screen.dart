@@ -12,7 +12,9 @@ class SecondScreen extends StatelessWidget {
           children: [
             const Text('2번째 화면'),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
               child: const Text("1번째 화면으로 이동"),
             ),
           ],
