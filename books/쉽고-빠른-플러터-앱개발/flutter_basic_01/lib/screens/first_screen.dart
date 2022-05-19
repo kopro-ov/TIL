@@ -9,6 +9,7 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
