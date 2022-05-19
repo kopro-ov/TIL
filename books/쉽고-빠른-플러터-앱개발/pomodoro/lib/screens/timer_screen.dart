@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sprintf/sprintf.dart';
 
 //타이머의 상태를 표현하기 위한 자료형
 enum TimerStatus { running, paused, stopped, resting }
@@ -27,6 +28,11 @@ class _TimerScreenState extends State<TimerScreen> {
     _timerStatus = TimerStatus.stopped;
     _timer = WORK_SECONDS;
     _pomodoroCount = 0;
+  }
+
+  String secondsToSTring(int seconds) {
+    // A ~/ B는 다트에서 A를 B로 나눈 몫을 계산하는 연산자
+    return sprintf("%02d:%02d", [seconds ~/ 60, seconds % 60]);
   }
 
   void run() {
