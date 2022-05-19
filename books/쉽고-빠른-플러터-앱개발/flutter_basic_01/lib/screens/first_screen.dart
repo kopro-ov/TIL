@@ -17,6 +17,12 @@ class _FirstScreenState extends State<FirstScreen> {
     });
   }
 
+  void decrease() {
+    setState(() {
+      count -= 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +39,8 @@ class _FirstScreenState extends State<FirstScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                ElevatedButton(onPressed: decrease, child: Text('- 감소')),
                 ElevatedButton(onPressed: increase, child: Text('+ 증가')),
-                ElevatedButton(onPressed: () {}, child: Text('- 감소')),
               ],
             )
           ],
