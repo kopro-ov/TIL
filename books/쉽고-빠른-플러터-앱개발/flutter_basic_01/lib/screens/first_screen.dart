@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basic_01/screens/second_screen.dart';
 
 class FirstScreen extends StatelessWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -12,7 +13,10 @@ class FirstScreen extends StatelessWidget {
           children: [
             const Text('1번째 화면'),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => SecondScreen()));
+              },
               child: const Text("2번째 화면으로 이동"),
             ),
           ],
