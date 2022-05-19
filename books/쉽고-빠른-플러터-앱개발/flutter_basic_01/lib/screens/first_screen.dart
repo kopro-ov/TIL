@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basic_01/screens/second_screen.dart';
 
-class FirstScreen extends StatelessWidget {
+class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
 
   @override
+  State<FirstScreen> createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("카운터 앱")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('1번째 화면'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        SecondScreen(screenData: '값을 넘겨줘봐요')));
-              },
-              child: const Text("2번째 화면으로 이동"),
+            Text(
+              '카운트 : ',
+              style: TextStyle(fontSize: 25),
             ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(onPressed: () {}, child: Text('- 감소')),
+                ElevatedButton(onPressed: () {}, child: Text('+ 감소')),
+              ],
+            )
           ],
         ),
       ),

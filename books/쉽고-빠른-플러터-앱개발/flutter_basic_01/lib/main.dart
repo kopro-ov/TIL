@@ -51,12 +51,6 @@ class MyHomePage extends StatelessWidget {
         ),
       );
     }
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            title,
-          ),
-        ),
-        body: FirstScreen());
+    return Scaffold(body: FirstScreen());
   }
 }
