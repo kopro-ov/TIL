@@ -15,7 +15,8 @@ class FirstScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => SecondScreen()));
+                    builder: (BuildContext context) =>
+                        SecondScreen(screenData: '값을 넘겨줘봐요')));
               },
               child: const Text("2번째 화면으로 이동"),
             ),
