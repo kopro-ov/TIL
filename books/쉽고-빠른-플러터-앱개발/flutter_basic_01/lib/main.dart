@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basic_01/screens/first_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,59 +52,11 @@ class MyHomePage extends StatelessWidget {
       );
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          title,
+        appBar: AppBar(
+          title: Text(
+            title,
+          ),
         ),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () {},
-              child: const Text('TextButton'),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                debugPrint('Received click');
-              },
-              child: const Text('Outlined Button'),
-            ),
-            ElevatedButton(
-                onPressed: () {}, child: const Text('Elevated Button1')),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                // Foreground color
-                onPrimary: Theme.of(context).colorScheme.onSecondaryContainer,
-                // Background color
-                primary: Theme.of(context).colorScheme.secondaryContainer,
-              ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
-              onPressed: () {},
-              child: const Text('Elevated Button2'),
-            ),
-            IconButton(
-              icon: const Icon(Icons.star),
-              tooltip: 'star',
-              onPressed: () {},
-            ),
-            Ink(
-              decoration: const ShapeDecoration(
-                color: Color(0xff6750a4),
-                shape: CircleBorder(),
-              ),
-              child: IconButton(
-                icon: const Icon(Icons.star),
-                color: Colors.white,
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+        body: FirstScreen());
   }
 }
