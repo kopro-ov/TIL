@@ -16,8 +16,8 @@ class TimerScreen extends StatefulWidget {
 
 class _TimerScreenState extends State<TimerScreen> {
   //상태 정의
-  static const WORK_SECONDS = 25 * 60;
-  static const REST_SECONDS = 5 * 60;
+  static const WORK_SECONDS = 25; // * 60;
+  static const REST_SECONDS = 5; //* 60;
 
   late TimerStatus _timerStatus;
   late int _timer;
@@ -122,7 +122,7 @@ class _TimerScreenState extends State<TimerScreen> {
   Widget build(BuildContext context) {
     final List<Widget> _runningButtons = [
       ElevatedButton(
-        onPressed: () {},
+        onPressed: _timerStatus == TimerStatus.paused ? resume : pause,
         child: Text(
           _timerStatus == TimerStatus.paused ? '계속하기' : '일시정지',
           style: TextStyle(fontSize: 16),
