@@ -17,14 +17,45 @@ class _TimerScreenState extends State<TimerScreen> {
 
   late TimerStatus _timerStatus;
   late int _timer;
-  late int _pomdoroCount;
+  late int _pomodoroCount;
 
   @override
   void initState() {
     super.initState();
     _timerStatus = TimerStatus.stopped;
     _timer = WORK_SECONDS;
-    _pomdoroCount = 0;
+    _pomodoroCount = 0;
+  }
+
+  void run() {
+    setState(() {
+      _timerStatus = TimerStatus.running;
+      //runTimer();
+    });
+  }
+
+  void rest() {
+    setState(() {
+      _timer = REST_SECONDS;
+      _timerStatus = TimerStatus.resting;
+    });
+  }
+
+  void pause() {
+    setState(() {
+      _timerStatus = TimerStatus.paused;
+    });
+  }
+
+  void resume() {
+    run();
+  }
+
+  void stop() {
+    setState(() {
+      _timer = WORK_SECONDS;
+      _timerStatus = TimerStatus.stopped;
+    });
   }
 
   @override
