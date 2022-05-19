@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 //타이머의 상태를 표현하기 위한 자료형
@@ -30,7 +32,40 @@ class _TimerScreenState extends State<TimerScreen> {
   void run() {
     setState(() {
       _timerStatus = TimerStatus.running;
-      //runTimer();
+      runTimer();
+    });
+  }
+
+  void runTimer() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      switch (_timerStatus) {
+        case TimerStatus.paused:
+          timer.cancel();
+          break;
+        case TimerStatus.stopped:
+          timer.cancel();
+          break;
+        case TimerStatus.running:
+          if (_timer <= 0) {
+            rest();
+          } else {
+            setState(() {
+              _timer = -1;
+            });
+          }
+          break;
+        case TimerStatus.resting:
+          if (_timer <= 0) {
+            setState(() {
+              _pomodoroCount += 1;
+            });
+            timer.cancel();
+            stop();
+          }
+          break;
+        default:
+          break;
+      }
     });
   }
 
