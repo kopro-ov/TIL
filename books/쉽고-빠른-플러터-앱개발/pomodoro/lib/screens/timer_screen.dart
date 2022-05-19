@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sprintf/sprintf.dart';
 
 //타이머의 상태를 표현하기 위한 자료형
@@ -15,8 +16,8 @@ class TimerScreen extends StatefulWidget {
 
 class _TimerScreenState extends State<TimerScreen> {
   //상태 정의
-  static const WORK_SECONDS = 25; //*60
-  static const REST_SECONDS = 5; //* 60
+  static const WORK_SECONDS = 25 * 60;
+  static const REST_SECONDS = 5 * 60;
 
   late TimerStatus _timerStatus;
   late int _timer;
@@ -35,6 +36,18 @@ class _TimerScreenState extends State<TimerScreen> {
     return sprintf("%02d:%02d", [seconds ~/ 60, seconds % 60]);
   }
 
+  void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
   void run() {
     setState(() {
       _timerStatus = TimerStatus.running;
@@ -42,21 +55,22 @@ class _TimerScreenState extends State<TimerScreen> {
     });
   }
 
-  void runTimer() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
+  void runTimer() async {
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
       switch (_timerStatus) {
         case TimerStatus.paused:
-          timer.cancel();
+          t.cancel();
           break;
         case TimerStatus.stopped:
-          timer.cancel();
+          t.cancel();
           break;
         case TimerStatus.running:
           if (_timer <= 0) {
+            showToast("작업 완료!");
             rest();
           } else {
             setState(() {
-              _timer = -1;
+              _timer -= 1;
             });
           }
           break;
@@ -65,8 +79,13 @@ class _TimerScreenState extends State<TimerScreen> {
             setState(() {
               _pomodoroCount += 1;
             });
-            timer.cancel();
+            showToast("오늘 $_pomodoroCount개의 뽀모도로를 달성했습니다.");
+            t.cancel();
             stop();
+          } else {
+            setState(() {
+              _timer -= 1;
+            });
           }
           break;
         default:
