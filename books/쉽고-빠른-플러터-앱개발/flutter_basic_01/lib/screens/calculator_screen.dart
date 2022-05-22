@@ -219,7 +219,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   child: Text('3')),
             ),
             Expanded(
-              child: ElevatedButton(onPressed: () {}, child: Text('4')),
+              child: ElevatedButton(
+                  onPressed: () {
+                    operand('+');
+                  },
+                  child: Text('+')),
             ),
           ],
         ),
