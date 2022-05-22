@@ -60,7 +60,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         break;
       case "*":
         setState(() {
-          if (_num1 == 0) _num1 = 1;
+          if (_num1 == 0 && _num2 > 0) _num1 = 1;
           _num1 *= _num2;
           _num2 = 0;
           _output = _num1.toString();
@@ -69,6 +69,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       case "÷":
         setState(() {
           //_num1 /= _num2;
+          _num2 = 0;
+          _output = _num1.toString();
+        });
+        break;
+      case "=":
+        setState(() {
+          if (_num1 == 0 && _num2 > 0) _num1 = _num2;
           _num2 = 0;
           _output = _num1.toString();
         });
