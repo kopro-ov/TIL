@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basic_01/screens/calculator_screen.dart';
 import 'package:flutter_basic_01/screens/first_screen.dart';
 
 void main() {
@@ -43,14 +44,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    for (var i = 0; i < 50; i++) {
-      list.add(
-        Text(
-          'Hello ' + (i + 1).toString(),
-          style: TextStyle(fontSize: 25),
-        ),
-      );
-    }
-    return Scaffold(body: FirstScreen());
+    return Scaffold(
+        appBar: AppBar(title: Text('계산기')), body: CalculatorScreen());
   }
 }
