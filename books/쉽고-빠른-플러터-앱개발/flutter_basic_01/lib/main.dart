@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => MyHomePage(title: 'Flutter'),
+        '/calculatorScreen': (context) => CalculatorScreen(),
         '/counter': (context) => CounterScreen(),
       },
       initialRoute: '/',
