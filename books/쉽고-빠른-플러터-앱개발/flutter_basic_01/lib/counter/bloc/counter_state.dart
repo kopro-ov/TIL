@@ -2,7 +2,10 @@ part of 'counter_bloc.dart';
 
 @immutable
 abstract class CounterState {
-  late final int count;
+  final int count;
+  const CounterState(this.count);
 }
 
-class CounterInitial extends CounterState {}
+class CounterInitial extends CounterState {
+  const CounterInitial(super.count);
+}
