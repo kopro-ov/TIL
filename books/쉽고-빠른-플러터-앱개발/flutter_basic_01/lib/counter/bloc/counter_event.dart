@@ -1,20 +1,8 @@
 part of 'counter_bloc.dart';
 
 @immutable
-abstract class CounterEvent {
-  const CounterEvent();
-}
+abstract class CounterEvent {}
 
-class CounterIncrement extends CounterEvent {
-  const CounterIncrement();
+class CounterIncrement extends CounterEvent {}
 
-  @override
-  String toString() => '[+] CounterIncrement';
-}
-
-class CounterDecrement extends CounterEvent {
-  const CounterDecrement();
-
-  @override
-  String toString() => '[+] CounterDecrement';
-}
+class CounterDecrement extends CounterEvent {}

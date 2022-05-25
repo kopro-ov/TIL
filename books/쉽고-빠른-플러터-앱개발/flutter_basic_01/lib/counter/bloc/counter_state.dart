@@ -7,5 +7,8 @@ abstract class CounterState {
 }
 
 class CounterInitial extends CounterState {
-  const CounterInitial(super.count);
+  const CounterInitial(int count) : super(count);
+
+  @override
+  String toString() => 'CounterInitial { count: $count }';
 }
