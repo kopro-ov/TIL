@@ -9,10 +9,10 @@ abstract class PizzaState extends Equatable {
 
 class PizzaInitial extends PizzaState {}
 
-class PizzLoaded extends PizzaState {
+class PizzaLoaded extends PizzaState {
   final List<Pizza> pizzas;
 
-  const PizzLoaded({required this.pizzas});
+  const PizzaLoaded({required this.pizzas});
 
   @override
   List<Object> get props => [pizzas];
