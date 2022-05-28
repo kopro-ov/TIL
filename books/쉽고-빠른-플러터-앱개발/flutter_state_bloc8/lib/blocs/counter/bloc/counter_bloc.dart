@@ -5,9 +5,14 @@ part 'counter_event.dart';
 part 'counter_state.dart';
 
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
-  CounterBloc() : super(CounterInitial()) {
-    on<CounterEvent>((event, emit) {
-      // TODO: implement event handler
+  CounterBloc() : super(CounterInitial(0)) {
+    on<CounterIncrement>((event, emit) async {
+      emit(CounterInitial(state.count + 1));
     });
+    on<CounterDecrement>(
+      (event, emit) {
+        emit(CounterInitial(state.count - 1));
+      },
+    );
   }
 }
