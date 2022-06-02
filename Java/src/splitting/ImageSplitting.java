@@ -39,13 +39,12 @@ public class ImageSplitting  {
     public void createImagePieces() {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                imagePieces.add(getImagePiece(r, c));
-                saveImageFile(imagePieces.get(r*cols + c), "Image_"+r*cols + c);
+                imagePieces.add(createImagePiece(r, c));
             }
         }
     }
 
-    private BufferedImage getImagePiece(int row, int col) {
+    private BufferedImage createImagePiece(int row, int col) {
         BufferedImage result = new BufferedImage(pieceWidth, pieceHeight, image.getType());
         for (int y = 0; y < pieceHeight; y++) {
             for (int x = 0; x < pieceWidth; x++) {
@@ -53,6 +52,12 @@ public class ImageSplitting  {
             }
         }
         return result;
+    }
+
+    public void saveImagePieces() {
+        for (int i = 0; i < imagePieces.size(); i++) {
+            saveImageFile(imagePieces.get(i), "Image_"+i);
+        }
     }
 
     public void saveImageFile(BufferedImage image, String imageName) {
@@ -64,4 +69,5 @@ public class ImageSplitting  {
             throw new IllegalArgumentException("이미지를 저장할 수 없습니다.");
         }
     }
+
 }
