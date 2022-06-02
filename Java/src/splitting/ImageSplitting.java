@@ -57,9 +57,8 @@ public class ImageSplitting  {
 
     public void saveImageFile(BufferedImage image, String imageName) {
         try {
-            BufferedImage bi = image;
             File outfile = new File(savePath+"/saved_"+imageName+".png");
-            ImageIO.write(bi, "png", outfile);
+            ImageIO.write(image, "png", outfile);
         } catch (IOException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("이미지를 저장할 수 없습니다.");
