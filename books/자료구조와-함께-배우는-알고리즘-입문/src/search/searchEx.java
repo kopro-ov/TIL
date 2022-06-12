@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class searchEx {
 
-    static int searchLinear(int[] arr, int key) {
+    static int linearSearch(int[] arr, int key) {
         int i = 0;
         while (true) {
             if(i== arr.length-1)
@@ -15,7 +15,7 @@ public class searchEx {
         }
     }
 
-    static int searchBinary(int[] arr, int key) {
+    static int binarySearch(int[] arr, int key) {
         int firstIndex = 0;
         int lastIndex = arr.length-1;
 
@@ -34,7 +34,7 @@ public class searchEx {
         return -1;
     }
     
-    static int[] sorting(int[] arr) {
+    static int[] arraySorting(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             int tmp;
             for (int j = i+1; j < arr.length; j++) {
@@ -50,10 +50,10 @@ public class searchEx {
 
     public static void main(String[] args) {
 
-        int[] intArray = new int[]{ 1, 8, 5, 2, 6, 3, 7, 4, 10, 9};
+        int[] arr = new int[]{ 1, 8, 5, 2, 6, 3, 7, 4, 10, 9};
 
-        searchLinear(intArray, 6);
-        searchBinary(sorting(intArray), 6);
+        linearSearch(arr, 6);
+        binarySearch(arraySorting(arr), 6);
 
     }
 }
