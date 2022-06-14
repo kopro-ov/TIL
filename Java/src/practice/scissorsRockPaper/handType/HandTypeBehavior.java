@@ -1,4 +1,4 @@
-package practice.rockPaperScissors.handType;
+package practice.scissorsRockPaper.handType;
 
 public interface HandTypeBehavior {
 

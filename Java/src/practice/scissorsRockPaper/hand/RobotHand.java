@@ -1,6 +1,6 @@
-package practice.rockPaperScissors.hand;
+package practice.scissorsRockPaper.hand;
 
-import practice.rockPaperScissors.handType.HandTypeRandom;
+import practice.scissorsRockPaper.handType.HandTypeRandom;
 
 public class RobotHand extends Hand {
 

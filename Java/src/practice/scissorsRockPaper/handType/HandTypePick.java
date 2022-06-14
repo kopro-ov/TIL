@@ -1,4 +1,4 @@
-package practice.rockPaperScissors.handType;
+package practice.scissorsRockPaper.handType;
 
 import java.util.Scanner;
 

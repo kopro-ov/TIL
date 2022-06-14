@@ -1,6 +1,6 @@
-package practice.rockPaperScissors.hand;
+package practice.scissorsRockPaper.hand;
 
-import practice.rockPaperScissors.handType.HandTypeBehavior;
+import practice.scissorsRockPaper.handType.HandTypeBehavior;
 
 public abstract class Hand {
 
