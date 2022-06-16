@@ -9,8 +9,8 @@ public class Home {
         //Theme theme2 = new Theme(); //다른
 
         //정적 팩터리 메서드로 인스턴스를 통제하기 때문에 인스턴스가 동일함
-        Theme theme1 = Theme.newInstance();
-        Theme theme2 = Theme.newInstance();
+        Theme theme1 = Theme.getInstance();
+        Theme theme2 = Theme.getInstance();
         System.out.println(theme1);
         System.out.println(theme2);
     }
