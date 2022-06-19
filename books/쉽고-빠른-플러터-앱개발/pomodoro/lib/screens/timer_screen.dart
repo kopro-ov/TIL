@@ -1,195 +1,47 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sprintf/sprintf.dart';
+import 'package:get/get.dart';
+import 'package:pomodoro/controller/timer_controller.dart';
+import 'package:pomodoro/widgets/timer_buttons.dart';
 
-//타이머의 상태를 표현하기 위한 자료형
-enum TimerStatus { running, paused, stopped, resting }
+import '../utils/utils.dart';
 
-class TimerScreen extends StatefulWidget {
+class TimerScreen extends StatelessWidget {
   const TimerScreen({Key? key}) : super(key: key);
 
   @override
-  State<TimerScreen> createState() => _TimerScreenState();
-}
-
-class _TimerScreenState extends State<TimerScreen> {
-  //상태 정의
-  static const WORK_SECONDS = 25; // * 60;
-  static const REST_SECONDS = 5; //* 60;
-
-  late TimerStatus _timerStatus;
-  late int _timer;
-  late int _pomodoroCount;
-
-  @override
-  void initState() {
-    super.initState();
-    _timerStatus = TimerStatus.stopped;
-    _timer = WORK_SECONDS;
-    _pomodoroCount = 0;
-  }
-
-  String secondsToSTring(int seconds) {
-    // A ~/ B는 다트에서 A를 B로 나눈 몫을 계산하는 연산자
-    return sprintf("%02d:%02d", [seconds ~/ 60, seconds % 60]);
-  }
-
-  void showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 5,
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  }
-
-  void run() {
-    setState(() {
-      _timerStatus = TimerStatus.running;
-      runTimer();
-    });
-  }
-
-  void runTimer() async {
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
-      switch (_timerStatus) {
-        case TimerStatus.paused:
-          t.cancel();
-          break;
-        case TimerStatus.stopped:
-          t.cancel();
-          break;
-        case TimerStatus.running:
-          if (_timer <= 0) {
-            showToast("작업 완료!");
-            rest();
-          } else {
-            setState(() {
-              _timer -= 1;
-            });
-          }
-          break;
-        case TimerStatus.resting:
-          if (_timer <= 0) {
-            setState(() {
-              _pomodoroCount += 1;
-            });
-            showToast("오늘 $_pomodoroCount개의 뽀모도로를 달성했습니다.");
-            t.cancel();
-            stop();
-          } else {
-            setState(() {
-              _timer -= 1;
-            });
-          }
-          break;
-        default:
-          break;
-      }
-    });
-  }
-
-  void rest() {
-    setState(() {
-      _timer = REST_SECONDS;
-      _timerStatus = TimerStatus.resting;
-    });
-  }
-
-  void pause() {
-    setState(() {
-      _timerStatus = TimerStatus.paused;
-    });
-  }
-
-  void resume() {
-    run();
-  }
-
-  void stop() {
-    setState(() {
-      _timer = WORK_SECONDS;
-      _timerStatus = TimerStatus.stopped;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final List<Widget> _runningButtons = [
-      ElevatedButton(
-        onPressed: _timerStatus == TimerStatus.paused ? resume : pause,
-        child: Text(
-          _timerStatus == TimerStatus.paused ? '계속하기' : '일시정지',
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.all(20),
-      ),
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          // Foreground color
-          onPrimary: Theme.of(context).colorScheme.onPrimary,
-          // Background color
-          primary: Theme.of(context).colorScheme.primary,
-        ),
-        onPressed: stop,
-        child: const Text('포기하기'),
-      ),
-    ];
-
-    final List<Widget> _stoppedButtons = [
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: _timerStatus == TimerStatus.resting
-              ? Theme.of(context).colorScheme.primary
-              : Theme.of(context).colorScheme.onPrimary,
-        ),
-        onPressed: run,
-        child: const Text('시작하기'),
-      ),
-    ];
+    final TimerController c = Get.put(TimerController());
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('뽀모도로 타이머'),
+        title: const Text('뽀모도로 타이머'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Center(
-              child: Text(
-                secondsToSTring(_timer),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
+      body: Obx(
+        () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.6,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: c.timerStatus == TimerStatus.resting
+                      ? Colors.green
+                      : Theme.of(context).colorScheme.primary),
+              child: Center(
+                child: Text(
+                  secondsToString(c.timer),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _timerStatus == TimerStatus.resting
-                    ? Colors.green
-                    : Theme.of(context).colorScheme.primary),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _timerStatus == TimerStatus.resting
-                ? const []
-                : _timerStatus == TimerStatus.stopped
-                    ? _stoppedButtons
-                    : _runningButtons,
-          )
-        ],
+            const TimerButtons(),
+          ],
+        ),
       ),
     );
   }
