@@ -19,6 +19,10 @@ class TimerController extends GetxController {
   final _timer = 0.obs;
   final _pomodoroCount = 0.obs;
 
+  get timerStatus => _timerStatus.value;
+  get timer => _timer.value;
+  get pomodoroCount => _pomodoroCount.value;
+
   @override
   onInit() {
     super.onInit();
@@ -29,6 +33,7 @@ class TimerController extends GetxController {
 
   run() {
     _timerStatus.value = TimerStatus.running;
+    _timerStatus.refresh;
     runTimer();
   }
 
@@ -62,16 +67,21 @@ class TimerController extends GetxController {
         default:
           break;
       }
+      _timer.refresh();
     });
   }
 
   rest() {
     _timer.value = REST_SECONDS;
     _timerStatus.value = TimerStatus.resting;
+    _timer.refresh();
+    _timerStatus.refresh();
   }
 
   pause() {
     _timerStatus.value = TimerStatus.paused;
+    print(TimerStatus.paused);
+    _timerStatus.refresh();
   }
 
   resume() {
@@ -81,5 +91,7 @@ class TimerController extends GetxController {
   stop() {
     _timer.value = WORK_SECONDS;
     _timerStatus.value = TimerStatus.stopped;
+    _timer.refresh();
+    _timerStatus.refresh();
   }
 }
