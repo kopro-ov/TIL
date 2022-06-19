@@ -8,4 +8,9 @@ public class Elvis2 {
 
     public void leaveTheBuild() {}
 
+
+    private Object readResolve() {
+        return INSTANCE;
+    }
+
 }
