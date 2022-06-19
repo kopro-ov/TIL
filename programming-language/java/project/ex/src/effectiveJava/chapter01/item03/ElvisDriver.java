@@ -4,12 +4,13 @@ public class ElvisDriver {
 
     public static void main(String[] args) {
 
+        //public static final 필드 방식의 싱글턴
         Elvis elvis = Elvis.INSTANCE;
-        System.out.println(elvis);
 
+        //정적 팩토리 방식의 싱글턴
         Elvis2 elvis2 = Elvis2.getInstance();
-        System.out.println(elvis2);
 
+        //열거 타입 방식의 싱글턴
         System.out.println(Elvis3.INSTANCE);
     }
 }
