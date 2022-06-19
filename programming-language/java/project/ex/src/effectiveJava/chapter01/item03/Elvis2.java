@@ -1,6 +1,8 @@
 package effectiveJava.chapter01.item03;
 
-public class Elvis2 {
+import java.io.Serializable;
+
+public class Elvis2 implements Serializable {
 
     private static final Elvis2 INSTANCE = new Elvis2();
     private Elvis2() {}
