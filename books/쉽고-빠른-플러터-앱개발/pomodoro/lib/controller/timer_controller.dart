@@ -20,7 +20,7 @@ class TimerController extends GetxController {
   final _pomodoroCount = 0.obs;
 
   @override
-  void onInit() {
+  onInit() {
     super.onInit();
     _timerStatus.value = TimerStatus.stopped;
     _timer.value = WORK_SECONDS;
@@ -65,20 +65,20 @@ class TimerController extends GetxController {
     });
   }
 
-  void rest() {
+  rest() {
     _timer.value = REST_SECONDS;
     _timerStatus.value = TimerStatus.resting;
   }
 
-  void pause() {
+  pause() {
     _timerStatus.value = TimerStatus.paused;
   }
 
-  void resume() {
+  resume() {
     run();
   }
 
-  void stop() {
+  stop() {
     _timer.value = WORK_SECONDS;
     _timerStatus.value = TimerStatus.stopped;
   }
