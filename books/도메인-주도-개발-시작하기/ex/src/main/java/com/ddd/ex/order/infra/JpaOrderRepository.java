@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JpaOrderRepository implements OrderRepository {
@@ -17,8 +18,10 @@ public class JpaOrderRepository implements OrderRepository {
     private EntityManager entityManager;
 
     @Override
-    public Order findById(OrderNo no) {
-        return entityManager.find(Order.class, no);
+    public Optional<Order> findById(OrderNo no) {
+
+        Order order = entityManager.find(Order.class, no);
+        return order != null ? Optional.of(order) : Optional.empty();
     }
 
     @Override
@@ -37,6 +40,7 @@ public class JpaOrderRepository implements OrderRepository {
         query.setParameter("orderId", orderId);
         query.setFirstResult(startRow);
         query.setMaxResults(fetchSize);
+
         return query.getResultList();
     }
 
