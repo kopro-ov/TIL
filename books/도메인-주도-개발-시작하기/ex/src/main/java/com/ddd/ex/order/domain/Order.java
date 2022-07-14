@@ -1,10 +1,15 @@
 package com.ddd.ex.order.domain;
 
+import com.ddd.ex.common.jpa.MoneyConverter;
+import com.ddd.ex.common.model.Money;
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Getter
 @Table(name = "purchase_order")
+@Entity
 @Access(AccessType.FIELD)
 public class Order {
 
@@ -14,20 +19,30 @@ public class Order {
     @Embedded
     private Orderer orderer;
 
+    @Embedded
+    private ShippingInfo shippingInfo;
+
+    @Column(name = "state")
+    @Enumerated(EnumType.STRING)
+    private OrderState orderState;
+
+    @Column(name = "total_amounts")
+    @Convert(converter = MoneyConverter.class)
+    private Money totalAmounts;
+
     protected Order() {
 
     }
 
-    private Order(OrderNo number, Orderer orderer) {
-
+    private Order(OrderNo number, Orderer orderer, ShippingInfo shippingInfo, OrderState orderState) {
         this.number = number;
         this.orderer = orderer;
-
+        this.shippingInfo = shippingInfo;
+        this.orderState = orderState;
     }
 
-    public static Order of(OrderNo number, Orderer orderer) {
-
-        return new Order(number, orderer);
+    public static Order of(OrderNo number, Orderer orderer, ShippingInfo shippingInfo, OrderState orderState) {
+        return new Order(number, orderer, shippingInfo, orderState);
     }
 
     @Override
