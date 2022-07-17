@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -14,6 +15,11 @@ public class Product {
 
     @EmbeddedId
     private ProductId id;
+
+    @ElementCollection
+    @CollectionTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"))
+    private Set<CategoryId> categoryIds;
 
     private String name;
 
