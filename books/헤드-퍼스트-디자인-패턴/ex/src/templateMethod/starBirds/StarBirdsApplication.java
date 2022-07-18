@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,14 +32,12 @@ public class StarBirdsApplication {
         });
 
         commandActions.put(Command.Coffee, arguments -> {
-            //TODO: 바리스타 커피 제조
             Coffee coffee = new Coffee();
             coffee.prepareRecipe();
             output.println("음료 나왔습니다");
         });
 
         commandActions.put(Command.Tea, arguments -> {
-           //TODO: 바리스타 티 제조
             Tea tea = new Tea();
             tea.prepareRecipe();
             output.println("음료 나왔습니다");
@@ -49,7 +46,6 @@ public class StarBirdsApplication {
         output.println();
         output.println("스타버즈 카페 오픈");
 
-        // quit(애플리케이션 종료) 명령어가 입력되기 전까지 무한히 반복하기(infinite loop)
         while (running.get()) {
             try {
                 // 사용자가 입력한 값 읽기
