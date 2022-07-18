@@ -9,11 +9,12 @@ public class Money {
     protected Money() {
 
     }
+
     private Money(int value) {
         this.value = value;
     }
 
-    public static Money of(int value) {
+    public static Money from(int value) {
         return new Money(value);
     }
 
@@ -35,6 +36,6 @@ public class Money {
     }
 
     public Money multiply(int multiplier) {
-        return Money.of(value * multiplier);
+        return from(value * multiplier);
     }
 }
