@@ -1,6 +1,6 @@
-package main.java.templateMethod.starBirds;
+package templateMethod.starBirds;
 
-public class Coffee extends CaffeineBeverage{
+public class Coffee extends CaffeineBeverage {
 
     @Override
     void brew() {
