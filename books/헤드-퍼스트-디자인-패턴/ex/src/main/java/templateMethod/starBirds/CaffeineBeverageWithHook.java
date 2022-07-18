@@ -1,4 +1,4 @@
-package templateMethod.starBirds;
+package main.java.templateMethod.starBirds;
 
 public abstract class CaffeineBeverageWithHook {
 

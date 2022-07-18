@@ -1,20 +1,18 @@
-package templateMethod.starBirds;
+package main.java.templateMethod.starBirds;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Optional;
 
-public class CoffeeWithHook extends CaffeineBeverageWithHook {
-
+public class TeaWithHook extends CaffeineBeverageWithHook {
     @Override
     void brew() {
-        System.out.println("필터로 커피를 우려내는 중");
+        System.out.println("찻잎을 우려내는 중");
     }
 
     @Override
     void addCondiments() {
-        System.out.println("우유와 설탕을 추가하는 중");
+        System.out.println("레몬을 추가하는 중");
     }
 
     @Override
@@ -29,7 +27,7 @@ public class CoffeeWithHook extends CaffeineBeverageWithHook {
 
     private String getUserInput() {
         String answer = null;
-        System.out.print("커피에 우유와 설탕을 넣을까요? (y/n) ");
+        System.out.print("차에 레몬을 넣을까요? (y/n) ");
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         try {
             answer = in.readLine();
@@ -38,4 +36,5 @@ public class CoffeeWithHook extends CaffeineBeverageWithHook {
         }
         return answer == null ? "n" : answer;
     }
+
 }
