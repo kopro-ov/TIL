@@ -32,13 +32,13 @@ public class StarBirdsApplication {
         });
 
         commandActions.put(Command.Coffee, arguments -> {
-            Coffee coffee = new Coffee();
+            CoffeeWithHook coffee = new CoffeeWithHook();
             coffee.prepareRecipe();
             output.println("음료 나왔습니다");
         });
 
         commandActions.put(Command.Tea, arguments -> {
-            Tea tea = new Tea();
+            TeaWithHook tea = new TeaWithHook();
             tea.prepareRecipe();
             output.println("음료 나왔습니다");
         });
