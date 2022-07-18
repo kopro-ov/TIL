@@ -1,4 +1,4 @@
-package main.java.templateMethod.starBirds;
+package templateMethod.starBirds;
 
 public class Tea extends CaffeineBeverage {
 

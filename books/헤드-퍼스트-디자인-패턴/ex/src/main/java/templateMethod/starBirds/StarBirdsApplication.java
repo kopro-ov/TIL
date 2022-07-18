@@ -1,4 +1,4 @@
-package main.java.templateMethod.starBirds;
+package templateMethod.starBirds;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

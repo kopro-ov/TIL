@@ -1,4 +1,4 @@
-package main.java.templateMethod.starBirds;
+package templateMethod.starBirds;
 
 @SuppressWarnings("serial")
 public class ApplicationException extends RuntimeException {
