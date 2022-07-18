@@ -15,6 +15,6 @@ public class MoneyConverter implements AttributeConverter<Money, Integer> {
 
     @Override
     public Money convertToEntityAttribute(Integer value) {
-        return value == null ? null : Money.of(value);
+        return value == null ? null : Money.from(value);
     }
 }
