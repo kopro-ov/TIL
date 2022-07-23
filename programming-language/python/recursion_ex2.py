@@ -5,4 +5,4 @@ def count_down(i):
     else:
         count_down(i-1)
 
-print(count_down(10))
+count_down(10)
