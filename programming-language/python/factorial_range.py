@@ -1,6 +1,5 @@
 def factorial_range(n):
     result = 1
-    n = 10
     for num in range(1, n +1):
         result *= num
     print(n)
