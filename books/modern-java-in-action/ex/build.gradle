@@ -18,7 +18,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
     implementation 'org.openjdk.jmh:jmh-core:1.35'
     jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
-
+    testImplementation("org.junit.vintage:junit-vintage-engine") { exclude group: "org.hamcrest", module: "hamcrest-core" }
 }
 
 test {
