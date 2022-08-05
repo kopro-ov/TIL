@@ -25,4 +25,8 @@ public class AppleBox {
         return appleBox;
     }
 
+    public List<Apple> getApples() {
+        return apples;
+    }
+
 }
