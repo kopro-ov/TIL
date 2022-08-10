@@ -26,4 +26,11 @@ public class AppleBox {
         return apples;
     }
 
+    public static void prettyPrintApple(List<Apple> apples, AppleFormatter formatter) {
+        for (Apple apple : apples) {
+            String output = formatter.accept(apple);
+            System.out.println(output);
+        }
+    }
+
 }
