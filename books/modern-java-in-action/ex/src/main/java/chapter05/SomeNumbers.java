@@ -15,5 +15,11 @@ public class SomeNumbers {
                         .filter(n -> n % 3 == 0)
                         .findFirst();
 
+        int count = someNumbers.stream()
+                .map(d -> 1)
+                .reduce(0, (a, b) -> a + b);
+
+        System.out.println(count);
+
     }
 }
