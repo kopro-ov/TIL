@@ -46,6 +46,25 @@ public class TransactionEx {
                 .sorted(comparing(Trader::getName))
                 .collect(toList());
 
+
+        String traderStr = transactionList
+                .stream()
+                .map(transaction -> transaction.getTrader().getName())
+                .distinct()
+                .sorted()
+                .reduce("", (n1, n2) -> n1 + n2);
+
+        boolean milanBased = transactionList
+                .stream()
+                .anyMatch(transaction -> transaction.getTrader()
+                                                    .getCity()
+                                                    .equals("Milan"));
+        transactionList.stream()
+                .filter(t-> "Cambridge".equals(t.getTrader().getCity()))
+                .map(Transaction::getValue)
+                .forEach(System.out::println);
+
+
     }
 
 }
