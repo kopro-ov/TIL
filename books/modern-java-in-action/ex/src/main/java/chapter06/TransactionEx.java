@@ -5,6 +5,7 @@ import domain.Transaction;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
@@ -63,6 +64,16 @@ public class TransactionEx {
                 .filter(t-> "Cambridge".equals(t.getTrader().getCity()))
                 .map(Transaction::getValue)
                 .forEach(System.out::println);
+
+        Optional<Integer> highestValue = transactionList
+                .stream()
+                .map(Transaction::getValue)
+                .reduce(Integer::max);
+
+        Optional<Transaction> smallestTransaction = transactionList
+                .stream()
+                .reduce((t1, t2) -> t1.getValue() < t2.getValue() ? t1 : t2);
+
 
 
     }
