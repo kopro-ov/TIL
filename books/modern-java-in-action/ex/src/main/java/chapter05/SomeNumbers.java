@@ -19,7 +19,5 @@ public class SomeNumbers {
                 .map(d -> 1)
                 .reduce(0, (a, b) -> a + b);
 
-        System.out.println(count);
-
     }
 }
