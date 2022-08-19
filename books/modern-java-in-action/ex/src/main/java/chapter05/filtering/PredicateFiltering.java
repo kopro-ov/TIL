@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.reducing;
 import static java.util.stream.Collectors.toList;
 
 public class PredicateFiltering {
@@ -60,6 +61,15 @@ public class PredicateFiltering {
                 .dropWhile(dish -> dish.getCalories() > 300)
                 .skip(2)
                 .collect(toList());
+
+
+        int totalCalories = menu.stream()
+                .collect(reducing(0,
+                        Dish::getCalories,
+                        Integer::sum));
+
+        String shortMenu = menu.stream().map(Dish::getName)
+                .collect(reducing((s1, s2) -> s1 + s2)).get();
 
     }
 }
